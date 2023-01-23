@@ -1,11 +1,13 @@
 package com.example.apitestquiz
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore.Audio.Radio
 import android.util.Log
 import android.view.View
 import android.widget.*
+import okhttp3.internal.Internal
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var radioButton: RadioButton
     lateinit var textView: TextView
     lateinit var buttonNext: Button
+    var x = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,27 +42,50 @@ class MainActivity : AppCompatActivity() {
                 response: Response<List<QuestionModelItem>>
             ) {
 
-//               for (q in response.body()!!){  //Testing API Outputs
-//                    Log.e("wow",q.incorrectAnswers.toString())
-//               }
-//               Log.e("wow", response.body()!![2].incorrectAnswers.toString())
+                var x = 0
+                var flag = true
 
-                textView.setText(response.body()!![0].question.toString())  //Question 1
 
-                val answerCorrect = response.body()!![0].correctAnswer.toString() //Getting answer from API
-                val answerWrong = response.body()!![0].incorrectAnswers.toString()
-                    .replace("[","")
-                    .replace("]","")
-                    .split(", ")
+                buttonNext.setOnClickListener {
+                    outerLoop@ while (flag == true){
 
-                val answerCollec = answerWrong + answerCorrect  //Getting answer collections and shuffling
-                val answerShuff = answerCollec.toMutableList()
-                Collections.shuffle(answerShuff)
+//                    for (q in response.body()!!){  //Testing API Outputs
+//                        Log.e("wow",q.incorrectAnswers.toString())
+//                    }
+//                      Log.e("wow", response.body()!![2].incorrectAnswers.toString())
 
-                for (i in 0 until radioGroup.childCount){ //output of answers to radioButton text
-                    radioButton = radioGroup.getChildAt(i) as RadioButton
-                    radioButton.text = answerShuff[i]
+                        textView.setText(response.body()!![x].question.toString())  //Question 1
+
+                        val answerCorrect = response.body()!![x].correctAnswer.toString() //Getting answer from API
+                        val answerWrong = response.body()!![x].incorrectAnswers.toString()
+                            .replace("[","")
+                            .replace("]","")
+                            .split(", ")
+
+                        val answerCollec = answerWrong + answerCorrect  //Getting answer collections and shuffling
+                        val answerShuff = answerCollec.toMutableList()
+                        Collections.shuffle(answerShuff)
+
+                        for (i in 0 until radioGroup.childCount){ //output of answers to radioButton text
+                            radioButton = radioGroup.getChildAt(i) as RadioButton
+                            radioButton.text = answerShuff[i]
+                        } //end
+
+                        flag = false
+                        x++
+
+                        if (x<5){
+                            flag = true
+                            break@outerLoop
+                        }else{
+                            var intent = Intent(this@MainActivity,EndActivity::class.java)
+                            startActivity(intent)
+                        }
+
+                    }
                 }
+
+
 
             }
 
