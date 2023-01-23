@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="One"
+            android:id="@+id/radioOne"
+            android:onClick="checkButton"
+            android:checked="true"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Two"
+            android:id="@+id/radioTwo"
+            android:onClick="checkButton"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Three"
+            android:id="@+id/radioThree"
+            android:onClick="checkButton"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Four"
+            android:id="@+id/radioFour"
+            android:onClick="checkButton"/>
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:layout_above="@+id/radioGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-283dp"
+        android:text="Your selection: "
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="Next" />
+
+</RelativeLayout>
