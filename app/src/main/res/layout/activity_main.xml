@@ -42,6 +42,7 @@
     </RadioGroup>
 
     <TextView
+        android:paddingHorizontal="25dp"
         android:id="@+id/textQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

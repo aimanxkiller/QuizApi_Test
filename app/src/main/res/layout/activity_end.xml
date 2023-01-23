@@ -6,4 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".EndActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:paddingHorizontal="25dp"
+        android:gravity="center_horizontal"
+        android:text="Quiz Done\n Here are your results :"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

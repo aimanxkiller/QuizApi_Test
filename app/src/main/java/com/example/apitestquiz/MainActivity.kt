@@ -43,39 +43,38 @@ class MainActivity : AppCompatActivity() {
             ) {
 
                 var x = 0
-                var flag = true
-
 
                 buttonNext.setOnClickListener {
-                    outerLoop@ while (flag == true){
+                    outerLoop@ while (x < 6){
 
 //                    for (q in response.body()!!){  //Testing API Outputs
 //                        Log.e("wow",q.incorrectAnswers.toString())
 //                    }
 //                      Log.e("wow", response.body()!![2].incorrectAnswers.toString())
+                        if (x<5) {
+                            textView.setText(response.body()!![x].question.toString())  //Question 1
 
-                        textView.setText(response.body()!![x].question.toString())  //Question 1
+                            val answerCorrect =
+                                response.body()!![x].correctAnswer.toString() //Getting answer from API
+                            val answerWrong = response.body()!![x].incorrectAnswers.toString()
+                                .replace("[", "")
+                                .replace("]", "")
+                                .split(", ")
 
-                        val answerCorrect = response.body()!![x].correctAnswer.toString() //Getting answer from API
-                        val answerWrong = response.body()!![x].incorrectAnswers.toString()
-                            .replace("[","")
-                            .replace("]","")
-                            .split(", ")
+                            val answerCollec =
+                                answerWrong + answerCorrect  //Getting answer collections and shuffling
+                            val answerShuff = answerCollec.toMutableList()
+                            Collections.shuffle(answerShuff)
 
-                        val answerCollec = answerWrong + answerCorrect  //Getting answer collections and shuffling
-                        val answerShuff = answerCollec.toMutableList()
-                        Collections.shuffle(answerShuff)
+                            for (i in 0 until radioGroup.childCount) { //output of answers to radioButton text
+                                radioButton = radioGroup.getChildAt(i) as RadioButton
+                                radioButton.text = answerShuff[i]
+                            } //end
+                        }
 
-                        for (i in 0 until radioGroup.childCount){ //output of answers to radioButton text
-                            radioButton = radioGroup.getChildAt(i) as RadioButton
-                            radioButton.text = answerShuff[i]
-                        } //end
-
-                        flag = false
                         x++
 
-                        if (x<5){
-                            flag = true
+                        if (x<6){
                             break@outerLoop
                         }else{
                             var intent = Intent(this@MainActivity,EndActivity::class.java)
