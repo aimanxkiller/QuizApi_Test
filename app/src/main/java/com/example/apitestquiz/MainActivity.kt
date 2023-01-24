@@ -1,5 +1,6 @@
 package com.example.apitestquiz
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -40,9 +41,11 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,"Score is $score /5",Toast.LENGTH_SHORT).show()
             if (count<5){
                 nextQuestion(count)
-            }else
-            {
-
+            }else {
+                var intent = Intent(this@MainActivity,EndActivity::class.java)
+                Log.e("Ending", "The $score is total")
+                intent.putExtra("scoreFin",score.toString())
+                startActivity(intent)
             }
 
         }
