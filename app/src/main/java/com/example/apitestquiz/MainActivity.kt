@@ -138,10 +138,11 @@ class MainActivity : AppCompatActivity() {
 
         textView.setText(listA!![count].question.toString()) //Questions
         val answerCorrect = listA[count].correctAnswer.toString() //Getting answer from API
-        val answerWrong = listA[count].incorrectAnswers.toString()
-            .replace("[","")
-            .replace("]","")
-            .split(", ")
+        val answerWrong:List<String> = listA[count].incorrectAnswers
+//            .toString()
+//            .replace("[","")
+//            .replace("]","")
+//            .split(", ")
 
         val answerCollec = answerWrong + answerCorrect  //Getting answer collections and shuffling
         val answerShuff = answerCollec.toMutableList()
@@ -168,7 +169,7 @@ class MainActivity : AppCompatActivity() {
         radioButton = findViewById(radioId)
 
         answerChoice = radioButton.text.toString()
-        Toast.makeText(this,"Selected " + radioButton.text, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this,"Selected " + radioButton.text, Toast.LENGTH_SHORT).show()
     }
 
 }
