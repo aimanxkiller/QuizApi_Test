@@ -50,7 +50,7 @@
         android:layout_above="@+id/radioGroup"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-283dp"
-        android:text="Your selection: "
+        android:text="Press next to start"
         android:textSize="20sp" />
 
     <Button
