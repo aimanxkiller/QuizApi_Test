@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         buttonNext.setOnClickListener {
             score += checkAnswer(answerChoice,answerTrue)
             Log.e("wow", "$score is total")
-            Toast.makeText(this,"Score is $score /5",Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this,"Score is $score /5",Toast.LENGTH_SHORT).show()
             if (count<5){
                 nextQuestion(count)
             }else {
