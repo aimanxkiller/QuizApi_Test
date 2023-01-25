@@ -44,6 +44,10 @@ class MainActivity : AppCompatActivity() {
             getQuestion()
 
             buttonNext.setOnClickListener {
+                var radioId:Int = radioGroup.checkedRadioButtonId
+                radioButton = findViewById(radioId)
+                answerChoice = radioButton.text.toString()
+
                 score += checkAnswer(answerChoice,answerTrue)
                 Log.e("wow", "$score is total")
 //            Toast.makeText(this,"Score is $score /5",Toast.LENGTH_SHORT).show()

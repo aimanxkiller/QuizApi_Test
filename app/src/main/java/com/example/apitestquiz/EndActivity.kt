@@ -1,5 +1,6 @@
 package com.example.apitestquiz
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -22,5 +23,9 @@ class EndActivity : AppCompatActivity() {
         var score = myScore?.times(5)
         textView.text = "Your final score is \n $score/25"
 
+        buttonReset.setOnClickListener {
+            var intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
