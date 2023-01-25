@@ -97,7 +97,6 @@ class MainActivity : AppCompatActivity() {
                 var originalList = response.body()!!
                 listA = originalList
                 nextQuestion(0)
-//                setQuestion(originalList)
             }
             override fun onFailure(call: Call<List<QuestionModelItem>>, t: Throwable) {
                 Log.e("Fail","Failed to get data")
@@ -105,26 +104,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-//    fun setQuestion(listQ : List<QuestionModelItem>){
-//        listA = listQ
-//        textView.setText(listQ!![count].question.toString()) //Questions
-//        val answerCorrect = listQ[count].correctAnswer.toString() //Getting answer from API
-//        val answerWrong = listQ[count].incorrectAnswers.toString()
-//            .replace("[","")
-//            .replace("]","")
-//            .split(", ")
-//
-//        val answerCollec = answerWrong + answerCorrect  //Getting answer collections and shuffling
-//        val answerShuff = answerCollec.toMutableList()
-//        answerShuff.shuffle()
-//
-//        for (i in 0 until radioGroup.childCount){ //output of answers to radioButton text
-//            radioButton = radioGroup.getChildAt(i) as RadioButton
-//            radioButton.text = answerShuff[i]
-//        }
-//        answerTrue = answerCorrect
-//        count++
-//    }
 
     fun nextQuestion(c : Int){
         textView.setText(listA!![count].question.toString()) //Questions
