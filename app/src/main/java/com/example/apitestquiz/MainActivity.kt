@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     var answerChoice:String = "b"
     var count = 0 //counting questions
     var score = 0 //using for scores
+    var radioId:Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,18 +46,29 @@ class MainActivity : AppCompatActivity() {
             getQuestion()
 
             buttonNext.setOnClickListener {
-                score += checkAnswer(answerChoice,answerTrue)
-                Log.e("wow", "$score is total")
-//            Toast.makeText(this,"Score is $score /5",Toast.LENGTH_SHORT).show()
-                if (count<5){
-                    nextQuestion(count)
-                }else {
-                    var intent = Intent(this@MainActivity,EndActivity::class.java)
-                    Log.e("Ending", "The $score is total")
-                    intent.putExtra("scoreFin",score.toString())
-                    startActivity(intent)
+
+                if(radioId == -1){
+                    Toast.makeText(this,"Please select an answer  !",Toast.LENGTH_SHORT).show()
+                }else{
+                    radioId = radioGroup.checkedRadioButtonId
+                    radioButton = findViewById(radioId)
+                    answerChoice = radioButton.text.toString()
+                    score += checkAnswer(answerChoice,answerTrue)
+                    Log.e("wow", "$score is total")
+//                  Toast.makeText(this,"Score is $score /5",Toast.LENGTH_SHORT).show()
+                    if (count<5){
+                        nextQuestion(count)
+                        radioId = -1
+                        radioGroup.clearCheck()
+                    }else {
+                        var intent = Intent(this@MainActivity,EndActivity::class.java)
+                        Log.e("Ending", "The $score is total")
+                        intent.putExtra("scoreFin",score.toString())
+                        startActivity(intent)
+                    }
                 }
             }
+            
         }else{
             Toast.makeText(this,"No Network Connection",Toast.LENGTH_SHORT).show()
             buttonNext.text = "Retry"
@@ -108,9 +120,6 @@ class MainActivity : AppCompatActivity() {
             radioButton = radioGroup.getChildAt(i) as RadioButton
             radioButton.text = answerShuff[i]
         }
-        var radioId:Int = radioGroup.checkedRadioButtonId
-        radioButton = findViewById(radioId)
-        answerChoice = radioButton.text.toString()
         answerTrue = answerCorrect
         count++
     }
@@ -141,7 +150,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun checkButton(view: View){ //Checking button click
-        var radioId:Int = radioGroup.checkedRadioButtonId
+        radioId = radioGroup.checkedRadioButtonId
         radioButton = findViewById(radioId)
         answerChoice = radioButton.text.toString()
 //        Toast.makeText(this,"Selected " + radioButton.text, Toast.LENGTH_SHORT).show()
