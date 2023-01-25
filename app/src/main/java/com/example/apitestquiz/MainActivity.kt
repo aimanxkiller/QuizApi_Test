@@ -1,6 +1,9 @@
 package com.example.apitestquiz
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,6 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
     lateinit var radioGroup: RadioGroup
@@ -32,21 +36,40 @@ class MainActivity : AppCompatActivity() {
         textView = findViewById(R.id.textQuestion)
         buttonNext = findViewById(R.id.buttonNext)
 
-        getQuestion()
 
-        buttonNext.setOnClickListener {
-            score += checkAnswer(answerChoice,answerTrue)
-            Log.e("wow", "$score is total")
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? =connectivityManager.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnected == true
+
+        if(isConnected){
+            getQuestion()
+
+            buttonNext.setOnClickListener {
+                score += checkAnswer(answerChoice,answerTrue)
+                Log.e("wow", "$score is total")
 //            Toast.makeText(this,"Score is $score /5",Toast.LENGTH_SHORT).show()
-            if (count<5){
-                nextQuestion(count)
-            }else {
-                var intent = Intent(this@MainActivity,EndActivity::class.java)
-                Log.e("Ending", "The $score is total")
-                intent.putExtra("scoreFin",score.toString())
-                startActivity(intent)
+                if (count<5){
+                    nextQuestion(count)
+                }else {
+                    var intent = Intent(this@MainActivity,EndActivity::class.java)
+                    Log.e("Ending", "The $score is total")
+                    intent.putExtra("scoreFin",score.toString())
+                    startActivity(intent)
+                }
+            }
+        }else{
+            Toast.makeText(this,"No Network Connection",Toast.LENGTH_SHORT).show()
+            buttonNext.text = "Retry"
+            buttonNext.setOnClickListener {
+                retryConnection()
             }
         }
+
+    }
+
+    fun retryConnection(){
+        var intent2 = Intent(this,MainActivity::class.java)
+        startActivity(intent2)
     }
 
     private fun getQuestion() {
