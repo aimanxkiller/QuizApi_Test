@@ -132,6 +132,7 @@ class MainActivity : AppCompatActivity() {
 //
         answerTrue = answerCorrect
         count++
+
     }
 
     fun nextQuestion(c : Int){
@@ -155,6 +156,10 @@ class MainActivity : AppCompatActivity() {
 //
         answerTrue = answerCorrect
         count++
+
+        if(count==5)
+            buttonNext.text = "Submit"
+
     }
 
     private fun checkAnswer(a:String, b:String):Int{

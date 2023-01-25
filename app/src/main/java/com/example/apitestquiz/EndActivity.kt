@@ -12,10 +12,10 @@ class EndActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_end)
 
-        var myScore = intent.getStringExtra("scoreFin")
+        var myScore = intent.getStringExtra("scoreFin")?.toInt()
         textView = findViewById(R.id.textView2)
-
-        textView.text = "Your final score is \n $myScore/5"
+        var score = myScore?.times(5)
+        textView.text = "Your final score is \n $score/25"
 
     }
 }
