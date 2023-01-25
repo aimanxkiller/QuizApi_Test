@@ -1,5 +1,8 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.apitestquiz
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -14,21 +17,22 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "UNUSED_PARAMETER")
 class MainActivity : AppCompatActivity() {
 
-    lateinit var radioGroup: RadioGroup
-    lateinit var radioButton: RadioButton
-    lateinit var textView: TextView
-    lateinit var buttonNext: Button
+    private lateinit var radioGroup: RadioGroup
+    private lateinit var radioButton: RadioButton
+    private lateinit var textView: TextView
+    private lateinit var buttonNext: Button
 
     lateinit var listA : List<QuestionModelItem>
-    var answerTrue:String = "a"
-    var answerChoice:String = "b"
-    var count = 0 //counting questions
-    var score = 0 //using for scores
-    var radioId:Int = -1
+    private var answerTrue:String = "a"
+    private var answerChoice:String = "b"
+    private var count = 0 //counting questions
+    private var score = 0 //using for scores
+    private var radioId:Int = -1
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -55,13 +59,12 @@ class MainActivity : AppCompatActivity() {
                     answerChoice = radioButton.text.toString()
                     score += checkAnswer(answerChoice,answerTrue)
                     Log.e("wow", "$score is total")
-//                  Toast.makeText(this,"Score is $score /5",Toast.LENGTH_SHORT).show()
                     if (count<5){
-                        nextQuestion(count)
+                        nextQuestion()
                         radioId = -1
                         radioGroup.clearCheck()
                     }else {
-                        var intent = Intent(this@MainActivity,EndActivity::class.java)
+                        val intent = Intent(this@MainActivity,EndActivity::class.java)
                         Log.e("Ending", "The $score is total")
                         intent.putExtra("scoreFin",score.toString())
                         startActivity(intent)
@@ -79,8 +82,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun retryConnection(){
-        var intent2 = Intent(this,MainActivity::class.java)
+    private fun retryConnection(){
+        val intent2 = Intent(this,MainActivity::class.java)
         startActivity(intent2)
     }
 
@@ -94,9 +97,9 @@ class MainActivity : AppCompatActivity() {
                for (q in response.body()!!){  //Testing API Outputs
                     Log.e("wow",q.incorrectAnswers.toString())
                }
-                var originalList = response.body()!!
+                val originalList = response.body()!!
                 listA = originalList
-                nextQuestion(0)
+                nextQuestion()
             }
             override fun onFailure(call: Call<List<QuestionModelItem>>, t: Throwable) {
                 Log.e("Fail","Failed to get data")
@@ -104,17 +107,18 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun nextQuestion(c : Int){
-        textView.setText(listA!![count].question.toString()) //Questions
-        val answerCorrect = listA[count].correctAnswer.toString() //Getting answer from API
+    @SuppressLint("SetTextI18n")
+    fun nextQuestion(){
+        textView.text = listA[count].question //Questions
+        val answerCorrect = listA[count].correctAnswer //Getting answer from API
         val answerWrong:List<String> = listA[count].incorrectAnswers
-        val answerCollec = answerWrong + answerCorrect  //Getting answer collections and shuffling
-        val answerShuff = answerCollec.toMutableList()
-        answerShuff.shuffle()
+        val answerCollect = answerWrong + answerCorrect  //Getting answer collections and shuffling
+        val answerShuffle = answerCollect.toMutableList()
+        answerShuffle.shuffle()
 
         for (i in 0 until radioGroup.childCount){ //output of answers to radioButton text
             radioButton = radioGroup.getChildAt(i) as RadioButton
-            radioButton.text = answerShuff[i]
+            radioButton.text = answerShuffle[i]
         }
         answerTrue = answerCorrect
         count++
@@ -133,7 +137,6 @@ class MainActivity : AppCompatActivity() {
         radioId = radioGroup.checkedRadioButtonId
         radioButton = findViewById(radioId)
         answerChoice = radioButton.text.toString()
-//        Toast.makeText(this,"Selected " + radioButton.text, Toast.LENGTH_SHORT).show()
     }
 
 }
