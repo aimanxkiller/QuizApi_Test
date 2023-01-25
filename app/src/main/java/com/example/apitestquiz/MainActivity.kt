@@ -104,7 +104,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-
     fun nextQuestion(c : Int){
         textView.setText(listA!![count].question.toString()) //Questions
         val answerCorrect = listA[count].correctAnswer.toString() //Getting answer from API
