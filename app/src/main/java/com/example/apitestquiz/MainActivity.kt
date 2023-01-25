@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         textView = findViewById(R.id.textQuestion)
         buttonNext = findViewById(R.id.buttonNext)
 
-
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? =connectivityManager.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnected == true
@@ -64,7 +63,6 @@ class MainActivity : AppCompatActivity() {
                 retryConnection()
             }
         }
-
     }
 
     fun retryConnection(){
