@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -116,9 +117,13 @@ class MainActivity : AppCompatActivity() {
         val answerShuffle = answerCollect.toMutableList()
         answerShuffle.shuffle()
 
-        for (i in 0 until radioGroup.childCount){ //output of answers to radioButton text
+        /*for (i in 0 until radioGroup.childCount){ //output of answers to radioButton text
             radioButton = radioGroup.getChildAt(i) as RadioButton
             radioButton.text = answerShuffle[i]
+        }*/
+        radioGroup.children.forEachIndexed { index, view ->
+            radioButton = view as RadioButton
+            radioButton.text = answerShuffle[index]
         }
         answerTrue = answerCorrect
         count++
