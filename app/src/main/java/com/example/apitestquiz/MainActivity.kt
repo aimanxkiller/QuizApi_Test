@@ -83,17 +83,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getQuestion() {
+
+        Retro().getRetroLog()
+
         val retro = Retro().getRetroClient().create(QuestionApi::class.java)
+        val log = Retro().getRetroClient()
         retro.getQuestion().enqueue(object :Callback<List<QuestionModelItem>>{
             override fun onResponse(
                 call: Call<List<QuestionModelItem>>,
-                response: Response<List<QuestionModelItem>>
+                response: Response <List<QuestionModelItem>>
             ) {
+                //Changed to using okHTTP logging
 //               for (q in response.body()!!){  //Try to use another way to directly output to Logcat not using Log.e
 //                    Log.e("wow",q.incorrectAnswers.toString())
 //               }
-                val originalList = response.body()!!
-                listA = originalList
+                listA = response.body()!!
                 nextQuestion()
             }
             override fun onFailure(call: Call<List<QuestionModelItem>>, t: Throwable) {

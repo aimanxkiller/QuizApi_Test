@@ -1,16 +1,40 @@
 package com.example.apitestquiz
 
 import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class Retro {
     fun getRetroClient():Retrofit{
         val gson = GsonBuilder().setLenient().create()
+        var okhttpClientBuilder = OkHttpClient.Builder()
+        var logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        okhttpClientBuilder.addInterceptor(logging)
+
         return Retrofit.Builder()
             .baseUrl("https://the-trivia-api.com/api/")
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
+            .client(okhttpClientBuilder.build()).build()
+    }
+
+    fun getRetroLog(){
+        val gson = GsonBuilder().setLenient().create()
+        var okhttpClientBuilder = OkHttpClient.Builder()
+        var logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        okhttpClientBuilder.addInterceptor(logging)
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://the-trivia-api.com/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okhttpClientBuilder.build())
+
+        retrofit.build()
     }
 
 }
+
+
