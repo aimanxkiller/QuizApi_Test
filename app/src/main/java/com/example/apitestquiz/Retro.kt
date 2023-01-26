@@ -20,21 +20,6 @@ class Retro {
             .client(okhttpClientBuilder.build()).build()
     }
 
-    fun getRetroLog(){
-        val gson = GsonBuilder().setLenient().create()
-        var okhttpClientBuilder = OkHttpClient.Builder()
-        var logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-        okhttpClientBuilder.addInterceptor(logging)
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://the-trivia-api.com/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okhttpClientBuilder.build())
-
-        retrofit.build()
-    }
-
 }
 
 
