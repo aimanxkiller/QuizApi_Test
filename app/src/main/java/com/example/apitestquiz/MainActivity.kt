@@ -87,7 +87,6 @@ class MainActivity : AppCompatActivity() {
         Retro().getRetroLog()
 
         val retro = Retro().getRetroClient().create(QuestionApi::class.java)
-        val log = Retro().getRetroClient()
         retro.getQuestion().enqueue(object :Callback<List<QuestionModelItem>>{
             override fun onResponse(
                 call: Call<List<QuestionModelItem>>,
@@ -120,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             radioButton.text = answerShuffle[i]
         }*/ //update here
 
-        //Try uing forEach/forEachIndexed if looping with index
+        //Try using forEach/forEachIndexed if looping with index
         radioGroup.children.forEachIndexed { index, view ->
             radioButton = view as RadioButton
             radioButton.text = answerShuffle[index]
