@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         /*for (i in 0 until radioGroup.childCount){ //output of answers to radioButton text
             radioButton = radioGroup.getChildAt(i) as RadioButton
             radioButton.text = answerShuffle[i]
-        }*/
+        }*/ //update here
         radioGroup.children.forEachIndexed { index, view ->
             radioButton = view as RadioButton
             radioButton.text = answerShuffle[index]
