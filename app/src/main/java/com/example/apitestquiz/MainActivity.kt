@@ -42,16 +42,13 @@ class MainActivity : AppCompatActivity() {
         textView = findViewById(R.id.textQuestion)
         buttonNext = findViewById(R.id.buttonNext)
 
-
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? =connectivityManager.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnected == true
 
         if(isConnected){
             getQuestion()
-
             buttonNext.setOnClickListener {
-
                 if(radioId == -1){
                     Toast.makeText(this,"Please select an answer  !",Toast.LENGTH_SHORT).show()
                 }else{
@@ -59,7 +56,6 @@ class MainActivity : AppCompatActivity() {
                     radioButton = findViewById(radioId)
                     answerChoice = radioButton.text.toString()
                     score += checkAnswer(answerChoice,answerTrue)
-                    Log.e("wow", "$score is total")
                     if (count<5){
                         nextQuestion()
                         radioId = -1
@@ -72,7 +68,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-            
         }else{
             Toast.makeText(this,"No Network Connection",Toast.LENGTH_SHORT).show()
             buttonNext.text = "Retry"
@@ -80,7 +75,6 @@ class MainActivity : AppCompatActivity() {
                 retryConnection()
             }
         }
-
     }
 
     private fun retryConnection(){
@@ -95,9 +89,9 @@ class MainActivity : AppCompatActivity() {
                 call: Call<List<QuestionModelItem>>,
                 response: Response<List<QuestionModelItem>>
             ) {
-               for (q in response.body()!!){  //Testing API Outputs
-                    Log.e("wow",q.incorrectAnswers.toString())
-               }
+//               for (q in response.body()!!){  //Try to use another way to directly output to Logcat not using Log.e
+//                    Log.e("wow",q.incorrectAnswers.toString())
+//               }
                 val originalList = response.body()!!
                 listA = originalList
                 nextQuestion()
@@ -121,6 +115,8 @@ class MainActivity : AppCompatActivity() {
             radioButton = radioGroup.getChildAt(i) as RadioButton
             radioButton.text = answerShuffle[i]
         }*/ //update here
+
+        //Try uing forEach/forEachIndexed if looping with index
         radioGroup.children.forEachIndexed { index, view ->
             radioButton = view as RadioButton
             radioButton.text = answerShuffle[index]
