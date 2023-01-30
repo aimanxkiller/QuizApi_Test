@@ -3,10 +3,7 @@
 package com.example.apitestquiz
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -42,39 +39,60 @@ class MainActivity : AppCompatActivity() {
         textView = findViewById(R.id.textQuestion)
         buttonNext = findViewById(R.id.buttonNext)
 
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork: NetworkInfo? =connectivityManager.activeNetworkInfo
-        val isConnected: Boolean = activeNetwork?.isConnected == true
-
-        if(isConnected){
-            getQuestion()
-            buttonNext.setOnClickListener {
-                if(radioId == -1){
-                    Toast.makeText(this,"Please select an answer  !",Toast.LENGTH_SHORT).show()
-                }else{
-                    radioId = radioGroup.checkedRadioButtonId
-                    radioButton = findViewById(radioId)
-                    answerChoice = radioButton.text.toString()
-                    score += checkAnswer(answerChoice,answerTrue)
-                    if (count<5){
-                        nextQuestion()
-                        radioId = -1
-                        radioGroup.clearCheck()
-                    }else {
-                        val intent = Intent(this@MainActivity,EndActivity::class.java)
-                        Log.e("Ending", "The $score is total")
-                        intent.putExtra("scoreFin",score.toString())
-                        startActivity(intent)
-                    }
+        //updated to use internal failure from retrofit for no internet connection
+        getQuestion()
+        buttonNext.setOnClickListener {
+            if(radioId == -1){
+                Toast.makeText(this,"Please select an answer  !",Toast.LENGTH_SHORT).show()
+            }else{
+                radioId = radioGroup.checkedRadioButtonId
+                radioButton = findViewById(radioId)
+                answerChoice = radioButton.text.toString()
+                score += checkAnswer(answerChoice,answerTrue)
+                if (count<5){
+                    nextQuestion()
+                    radioId = -1
+                    radioGroup.clearCheck()
+                }else {
+                    val intent = Intent(this@MainActivity,EndActivity::class.java)
+                    Log.e("Ending", "The $score is total")
+                    intent.putExtra("scoreFin",score.toString())
+                    startActivity(intent)
                 }
             }
-        }else{
-            Toast.makeText(this,"No Network Connection",Toast.LENGTH_SHORT).show()
-            buttonNext.text = "Retry"
-            buttonNext.setOnClickListener {
-                retryConnection()
-            }
         }
+
+        //Not required to use network checking
+//        if(isConnected){
+//            getQuestion()
+//            buttonNext.setOnClickListener {
+//                if(radioId == -1){
+//                    Toast.makeText(this,"Please select an answer  !",Toast.LENGTH_SHORT).show()
+//                }else{
+//                    radioId = radioGroup.checkedRadioButtonId
+//                    radioButton = findViewById(radioId)
+//                    answerChoice = radioButton.text.toString()
+//                    score += checkAnswer(answerChoice,answerTrue)
+//                    if (count<5){
+//                        nextQuestion()
+//                        radioId = -1
+//                        radioGroup.clearCheck()
+//                    }else {
+//                        val intent = Intent(this@MainActivity,EndActivity::class.java)
+//                        Log.e("Ending", "The $score is total")
+//                        intent.putExtra("scoreFin",score.toString())
+//                        startActivity(intent)
+//                    }
+//                }
+//            }
+//        }else{
+//            Toast.makeText(this,"No Network Connection",Toast.LENGTH_SHORT).show()
+//            buttonNext.text = "Retry"
+//            buttonNext.setOnClickListener {
+//                retryConnection()
+//            }
+//        }
+
     }
 
     private fun retryConnection(){
@@ -93,7 +111,14 @@ class MainActivity : AppCompatActivity() {
                 listA = response.body()!!
                 nextQuestion()
             }
+            //updated using onFailure and placing retry option
+            @SuppressLint("SetTextI18n")
             override fun onFailure(call: Call<List<QuestionModelItem>>, t: Throwable) {
+                Toast.makeText(this@MainActivity,"No Network Connection",Toast.LENGTH_SHORT).show()
+                buttonNext.text = "Retry"
+                buttonNext.setOnClickListener {
+                    retryConnection()
+          }
                 Log.e("Fail","Failed to get data")
             }
         })
