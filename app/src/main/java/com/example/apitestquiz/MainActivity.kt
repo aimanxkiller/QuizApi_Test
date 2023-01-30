@@ -15,7 +15,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-@Suppress("DEPRECATION", "UNUSED_PARAMETER")
 class MainActivity : AppCompatActivity() {
 
     private lateinit var radioGroup: RadioGroup
@@ -156,6 +155,7 @@ class MainActivity : AppCompatActivity() {
             0
     }
 
+    @Suppress("UNUSED_PARAMETER")
     fun checkButton(view: View){ //Checking button click
         radioId = radioGroup.checkedRadioButtonId
         radioButton = findViewById(radioId)
