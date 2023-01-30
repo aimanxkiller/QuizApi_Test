@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private var count = 0 //counting questions
     private var score = 0 //using for scores
     private var radioId:Int = -1
+    private var type:String = "science"
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 radioButton = findViewById(radioId)
                 answerChoice = radioButton.text.toString()
                 score += checkAnswer(answerChoice,answerTrue)
-                if (count<5){
+                if (count<listA.size){
                     nextQuestion()
                     radioId = -1
                     radioGroup.clearCheck()
@@ -60,38 +61,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        //Not required to use network checking
-//        if(isConnected){
-//            getQuestion()
-//            buttonNext.setOnClickListener {
-//                if(radioId == -1){
-//                    Toast.makeText(this,"Please select an answer  !",Toast.LENGTH_SHORT).show()
-//                }else{
-//                    radioId = radioGroup.checkedRadioButtonId
-//                    radioButton = findViewById(radioId)
-//                    answerChoice = radioButton.text.toString()
-//                    score += checkAnswer(answerChoice,answerTrue)
-//                    if (count<5){
-//                        nextQuestion()
-//                        radioId = -1
-//                        radioGroup.clearCheck()
-//                    }else {
-//                        val intent = Intent(this@MainActivity,EndActivity::class.java)
-//                        Log.e("Ending", "The $score is total")
-//                        intent.putExtra("scoreFin",score.toString())
-//                        startActivity(intent)
-//                    }
-//                }
-//            }
-//        }else{
-//            Toast.makeText(this,"No Network Connection",Toast.LENGTH_SHORT).show()
-//            buttonNext.text = "Retry"
-//            buttonNext.setOnClickListener {
-//                retryConnection()
-//            }
-//        }
-
     }
 
     private fun retryConnection(){
@@ -101,7 +70,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun getQuestion() {
         val retro = Retro().getRetroClient().create(QuestionApi::class.java)
-        retro.getQuestion().enqueue(object :Callback<List<QuestionModelItem>>{
+
+        retro.getQuestion("https://the-trivia-api.com/api/questions?categories=$type&limit=5").enqueue(object :Callback<List<QuestionModelItem>>{
             override fun onResponse(
                 call: Call<List<QuestionModelItem>>,
                 response: Response <List<QuestionModelItem>>
@@ -110,10 +80,11 @@ class MainActivity : AppCompatActivity() {
                 listA = response.body()!!
                 nextQuestion()
             }
-            //updated using onFailure and placing retry option
+            //updated using onFailure and placing retry option within onFailure
             @SuppressLint("SetTextI18n")
             override fun onFailure(call: Call<List<QuestionModelItem>>, t: Throwable) {
                 Toast.makeText(this@MainActivity,"No Network Connection",Toast.LENGTH_SHORT).show()
+
                 buttonNext.text = "Retry"
                 buttonNext.setOnClickListener {
                     retryConnection()

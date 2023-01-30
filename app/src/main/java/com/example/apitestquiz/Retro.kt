@@ -9,8 +9,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class Retro {
     fun getRetroClient():Retrofit{
         val gson = GsonBuilder().setLenient().create()
-        var okhttpClientBuilder = OkHttpClient.Builder()
-        var logging = HttpLoggingInterceptor()
+        val okhttpClientBuilder = OkHttpClient.Builder()
+        val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
         okhttpClientBuilder.addInterceptor(logging)
 
@@ -19,7 +19,6 @@ class Retro {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(okhttpClientBuilder.build()).build()
     }
-
 }
 
 
