@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import org.w3c.dom.Text
 
 class EndActivity : AppCompatActivity() {
 
@@ -26,6 +25,8 @@ class EndActivity : AppCompatActivity() {
         buttonReset = findViewById(R.id.buttonReset)
         val x = choices.random()
         textView2 = findViewById(R.id.textView3)
+
+        textView2.text = ("The next quiz will be on the topic \n ${x.replace("_"," ")}")
 
 
         buttonReset.setOnClickListener {
