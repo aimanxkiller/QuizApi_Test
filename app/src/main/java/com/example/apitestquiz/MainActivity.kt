@@ -44,25 +44,30 @@ class MainActivity : AppCompatActivity() {
         if(random != null){
             type = random
         }
+
         getQuestion()
         buttonNext.setOnClickListener {
-            if(radioId == -1){
-                Toast.makeText(this,"Please select an answer  !",Toast.LENGTH_SHORT).show()
-            }else{
-                radioId = radioGroup.checkedRadioButtonId
-                radioButton = findViewById(radioId)
-                answerChoice = radioButton.text.toString()
-                score += checkAnswer(answerChoice,answerTrue)
-                if (count<listA.size){
-                    nextQuestion()
-                    radioId = -1
-                    radioGroup.clearCheck()
-                }else {
-                    val intent = Intent(this@MainActivity,EndActivity::class.java)
-                    Log.e("Ending", "The $score is total")
-                    intent.putExtra("scoreFin",score.toString())
-                    startActivity(intent)
-                }
+            buttonClick()
+        }
+    }
+
+    private fun buttonClick(){
+        if(radioId == -1){
+            Toast.makeText(this,"Please select an answer  !",Toast.LENGTH_SHORT).show()
+        }else{
+            radioId = radioGroup.checkedRadioButtonId
+            radioButton = findViewById(radioId)
+            answerChoice = radioButton.text.toString()
+            score += checkAnswer(answerChoice,answerTrue)
+            if (count<listA.size){
+                nextQuestion()
+                radioId = -1
+                radioGroup.clearCheck()
+            }else {
+                val intent = Intent(this@MainActivity,EndActivity::class.java)
+                Log.e("Ending", "The $score is total")
+                intent.putExtra("scoreFin",score.toString())
+                startActivity(intent)
             }
         }
     }

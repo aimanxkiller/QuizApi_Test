@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <RadioGroup
+
         android:id="@+id/radioGroup"
         android:paddingHorizontal="25dp"
         android:layout_width="wrap_content"
@@ -15,27 +14,31 @@
         android:layout_centerInParent="true">
 
         <RadioButton
+            android:justificationMode="inter_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="One"
+            android:text="@string/one"
             android:id="@+id/radioOne"
             android:onClick="checkButton" />
         <RadioButton
+            android:justificationMode="inter_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Two"
+            android:text="@string/two"
             android:id="@+id/radioTwo"
             android:onClick="checkButton"/>
         <RadioButton
+            android:justificationMode="inter_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Three"
+            android:text="@string/three"
             android:id="@+id/radioThree"
             android:onClick="checkButton"/>
         <RadioButton
+            android:justificationMode="inter_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Four"
+            android:text="@string/four"
             android:id="@+id/radioFour"
             android:onClick="checkButton"/>
 
@@ -44,13 +47,14 @@
     <TextView
         android:paddingHorizontal="25dp"
         android:id="@+id/textQuestion"
+        android:justificationMode="inter_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
         android:layout_above="@+id/radioGroup"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-283dp"
-        android:text="Press next to start"
+        android:text="@string/press_next_to_start"
         android:textSize="20sp" />
 
     <Button
@@ -60,6 +64,6 @@
         android:layout_below="@+id/radioGroup"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
-        android:text="Next" />
+        android:text="@string/next" />
 
 </RelativeLayout>

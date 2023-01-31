@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ApiTestQuiz</string>
+    <string name="one">One</string>
+    <string name="two">Two</string>
+    <string name="three">Three</string>
+    <string name="four">Four</string>
+    <string name="press_next_to_start">Press next to start</string>
+    <string name="next">Next</string>
 </resources>
