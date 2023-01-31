@@ -40,6 +40,10 @@ class MainActivity : AppCompatActivity() {
         buttonNext = findViewById(R.id.buttonNext)
 
         //updated to use internal failure from retrofit for no internet connection
+        val random = intent.getStringExtra("randomType")
+        if(random != null){
+            type = random
+        }
         getQuestion()
         buttonNext.setOnClickListener {
             if(radioId == -1){
