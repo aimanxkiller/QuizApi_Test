@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<List<QuestionModelItem>>, t: Throwable) {
                 Toast.makeText(this@MainActivity,"No Network Connection",Toast.LENGTH_SHORT).show()
 
-                buttonNext.text = "Retry"
+                buttonNext.text ="Retry"
                 buttonNext.setOnClickListener {
                     retryConnection()
           }
@@ -102,6 +102,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
 
     @SuppressLint("SetTextI18n")
     fun nextQuestion(){
@@ -125,7 +126,7 @@ class MainActivity : AppCompatActivity() {
         answerTrue = answerCorrect
         count++
         if(count==5)
-            buttonNext.text = "Submit"
+            buttonNext.text = ("Submit")
     }
 
     private fun checkAnswer(a:String, b:String):Int{
