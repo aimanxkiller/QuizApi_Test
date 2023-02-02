@@ -40,11 +40,7 @@ class MainActivity : AppCompatActivity() {
         buttonNext = findViewById(R.id.buttonNext)
 
         //updated to use internal failure from retrofit for no internet connection
-        val random = intent.getStringExtra("randomType")
-        if(random != null){
-            type = random
-        }
-
+        type = intent.getStringExtra("randomType")!!
         getQuestion()
         buttonNext.setOnClickListener {
             buttonClick()
@@ -80,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     private fun getQuestion() {
         val retro = Retro().getRetroClient().create(QuestionApi::class.java)
 
-        retro.getQuestion("https://the-trivia-api.com/api/questions?categories=$type&limit=5").enqueue(object :Callback<List<QuestionModelItem>>{
+        retro.getQuestionCat(type).enqueue(object :Callback<List<QuestionModelItem>>{
             override fun onResponse(
                 call: Call<List<QuestionModelItem>>,
                 response: Response <List<QuestionModelItem>>
@@ -97,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                 buttonNext.text ="Retry"
                 buttonNext.setOnClickListener {
                     retryConnection()
-          }
+                }
                 Log.e("Fail","Failed to get data")
             }
         })
