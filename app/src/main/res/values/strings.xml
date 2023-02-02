@@ -6,4 +6,9 @@
     <string name="four">Four</string>
     <string name="press_next_to_start">Press next to start</string>
     <string name="next">Next</string>
+    <string name="quiz_done_n_here_are_your_results">Quiz Done\n Here are your results :</string>
+    <string name="textview">TextView</string>
+    <string name="restart_nquiz">Restart \nQuiz</string>
+    <string name="please_select_a_topic_n_from_the_list_below">Please Select A Topic \n From The List Below</string>
+    <string name="nextSel">Next</string>
 </resources>

@@ -11,12 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
-        android:text="Please Select A Topic \n From The List Below"
+        android:text="@string/please_select_a_topic_n_from_the_list_below"
         android:justificationMode="inter_word"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
@@ -34,7 +34,7 @@
         android:id="@+id/buttonSel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Next"
+        android:text="@string/nextSel"
         android:paddingVertical="10dp"
         android:paddingHorizontal="30dp"
         android:layout_marginTop="75dp"
