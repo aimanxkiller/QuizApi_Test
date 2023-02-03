@@ -10,10 +10,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-
 class SelectionActivity : AppCompatActivity() {
-    private var category:MutableList<String> = mutableListOf()
     private lateinit var spinner:Spinner
     private lateinit var buttonNext:Button
     lateinit var selection:String
@@ -33,21 +30,24 @@ class SelectionActivity : AppCompatActivity() {
     }
 
     private fun spinnerEnabler(x: QuizCat){
+//        category.add(x.SportLeisure.toString())
+//        category.add(x.SocietyCulture.toString())
+//        category.add(x.Science.toString())
+//        category.add(x.Music.toString())
+//        category.add(x.History.toString())
+//        category.add(x.Geography.toString())
+//        category.add(x.GeneralKnowledge.toString())
+//        category.add(x.ArtsLiterature.toString())
+//        category.add(x.FoodDrink.toString())
+//        category.add(x.FilmTV.toString())
+//
+//        category.forEachIndexed { index, s ->
+//            category[index]=category[index].replace("[","").replace("]","")
+//        }
+        val categoryY = x.gettitle()
+        val categoryX = x.getdetails()
 
-        category.add(x.SportLeisure.toString())
-        category.add(x.SocietyCulture.toString())
-        category.add(x.Science.toString())
-        category.add(x.Music.toString())
-        category.add(x.History.toString())
-        category.add(x.Geography.toString())
-        category.add(x.GeneralKnowledge.toString())
-        category.add(x.ArtsLiterature.toString())
-        category.add(x.FoodDrink.toString())
-        category.add(x.FilmTV.toString())
-
-        Log.e("Test",category[0])
-
-        val arrayAdapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,category)
+        val arrayAdapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,categoryX)
         spinner.adapter = arrayAdapter
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -57,21 +57,25 @@ class SelectionActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                val y = category[position].split(",")
-                selection = y[0].replace("[","").replace("]","")
+                val y = categoryY[position].split(",")
+                selection = y[0]
                 Toast.makeText(this@SelectionActivity, selection, Toast.LENGTH_SHORT).show()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
-
     }
 
     private fun getQuizCat(){
         val retro = Retro().getRetroClient().create(QuestionApi::class.java)
         retro.getCategories().enqueue(object : Callback<QuizCat>{
             override fun onResponse(call: Call<QuizCat>, response: Response<QuizCat>) {
-                spinnerEnabler(response.body()!!)
+                if(response.isSuccessful){
+                    spinnerEnabler(response.body()!!)
+                }else{
+                    Toast.makeText(applicationContext,"Error",Toast.LENGTH_SHORT).show()
+                }
+
             }
 
             override fun onFailure(call: Call<QuizCat>, t: Throwable) {

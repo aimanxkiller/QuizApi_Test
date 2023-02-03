@@ -16,7 +16,6 @@ import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var radioGroup: RadioGroup
     private lateinit var radioButton: RadioButton
     private lateinit var textView: TextView
