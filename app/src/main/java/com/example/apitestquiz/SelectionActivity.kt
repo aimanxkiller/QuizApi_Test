@@ -13,25 +13,41 @@ import retrofit2.Response
 
 
 class SelectionActivity : AppCompatActivity() {
-    //Unable to get category name and variable from API
-    private var categoryName:MutableList<String> = mutableListOf()
     private var category:MutableList<String> = mutableListOf()
-    lateinit var categoryAPI:QuizCat
     private lateinit var spinner:Spinner
     private lateinit var buttonNext:Button
     lateinit var selection:String
-    private var temp:List<String> = listOf("a","b")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_selection)
 
-        getQuizCat()
-
         buttonNext = findViewById(R.id.buttonSel)
         spinner = findViewById(R.id.dropdownList)
 
-        val arrayAdapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,categoryName)
+        getQuizCat()
+
+        buttonNext.setOnClickListener {
+            buttonClick()
+        }
+    }
+
+    private fun spinnerEnabler(x: QuizCat){
+
+        category.add(x.SportLeisure.toString())
+        category.add(x.SocietyCulture.toString())
+        category.add(x.Science.toString())
+        category.add(x.Music.toString())
+        category.add(x.History.toString())
+        category.add(x.Geography.toString())
+        category.add(x.GeneralKnowledge.toString())
+        category.add(x.ArtsLiterature.toString())
+        category.add(x.FoodDrink.toString())
+        category.add(x.FilmTV.toString())
+
+        Log.e("Test",category[0])
+
+        val arrayAdapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,category)
         spinner.adapter = arrayAdapter
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -41,43 +57,27 @@ class SelectionActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                selection = category[position]
+                val y = category[position].split(",")
+                selection = y[0].replace("[","").replace("]","")
                 Toast.makeText(this@SelectionActivity, selection, Toast.LENGTH_SHORT).show()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
 
-        buttonNext.setOnClickListener {
-            buttonClick()
-        }
     }
 
     private fun getQuizCat(){
         val retro = Retro().getRetroClient().create(QuestionApi::class.java)
-
         retro.getCategories().enqueue(object : Callback<QuizCat>{
             override fun onResponse(call: Call<QuizCat>, response: Response<QuizCat>) {
-
-                categoryAPI = response.body()!!
-
-                //Unable to get the variable from here to outside
-                val split = categoryAPI.toString().replace("QuizCat(","").split("],")
-                val split2 = split
-
-                split.forEachIndexed { index, s ->
-                    var x = split2[index].replace("])","").split("=[")
-                    categoryName.add(x[0])
-                    category.add(x[1])
-                }
+                spinnerEnabler(response.body()!!)
             }
 
             override fun onFailure(call: Call<QuizCat>, t: Throwable) {
-                Log.e("Fail","Failed to get data")
+                Log.e("Fail","Failed to get data: "+ t.message)
             }
-
         })
-
     }
 
     private fun buttonClick(){

@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun getQuestion() {
         val retro = Retro().getRetroClient().create(QuestionApi::class.java)
-
         retro.getQuestionCat(type).enqueue(object :Callback<List<QuestionModelItem>>{
             override fun onResponse(
                 call: Call<List<QuestionModelItem>>,

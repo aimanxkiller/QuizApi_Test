@@ -14,4 +14,3 @@ data class QuizCat(
     @SerializedName("Society & Culture") val SocietyCulture: List<String>,
     @SerializedName("Sport & Leisure") val SportLeisure: List<String>
 )
-
