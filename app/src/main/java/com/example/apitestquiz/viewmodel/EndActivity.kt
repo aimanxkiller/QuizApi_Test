@@ -27,6 +27,7 @@ class EndActivity : AppCompatActivity() {
         buttonReset.setOnClickListener {
             val intent = Intent(this, SelectionActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

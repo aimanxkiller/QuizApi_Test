@@ -10,13 +10,15 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import androidx.lifecycle.lifecycleScope
 import com.example.apitestquiz.network.QuestionApi
 import com.example.apitestquiz.model.QuestionModelItem
 import com.example.apitestquiz.R
 import com.example.apitestquiz.network.Retro
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var textView: TextView
     private lateinit var buttonNext: Button
 
-    lateinit var listA : List<QuestionModelItem>
+    private lateinit var listA : List<QuestionModelItem>
     private var answerTrue:String = "a"
     private var answerChoice:String = "b"
     private var count = 0 //counting questions
@@ -44,10 +46,13 @@ class MainActivity : AppCompatActivity() {
 
         //updated to use internal failure from retrofit for no internet connection
         type = intent.getStringExtra("randomType")!!
-        getQuestion()
+
+        getQuestionCoroutine()
+
         buttonNext.setOnClickListener {
             buttonClick()
         }
+
     }
 
     private fun buttonClick(){
@@ -59,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             answerChoice = radioButton.text.toString()
             score += checkAnswer(answerChoice,answerTrue)
             if (count<listA.size){
-                nextQuestion()
+                setQuestion()
                 radioId = -1
                 radioGroup.clearCheck()
             }else {
@@ -71,39 +76,54 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun retryConnection(){
-        val intent2 = Intent(this, MainActivity::class.java)
-        startActivity(intent2)
-    }
-
-    private fun getQuestion() {
+    //updated to use coroutine for calling API
+    @SuppressLint("SetTextI18n")
+    private fun getQuestionCoroutine(){
         val retro = Retro().getRetroClient().create(QuestionApi::class.java)
-        retro.getQuestionCat(type).enqueue(object :Callback<List<QuestionModelItem>>{
-            override fun onResponse(
-                call: Call<List<QuestionModelItem>>,
-                response: Response <List<QuestionModelItem>>
-            ) {
-                //Changed to using okHTTP logging
-                listA = response.body()!!
-                nextQuestion()
+        val handler = CoroutineExceptionHandler { _, throwable ->
+            Toast.makeText(this@MainActivity,"No internet connection : $throwable",Toast.LENGTH_SHORT).show()
+            buttonNext.text ="Retry"
+            buttonNext.setOnClickListener {
+                retryConnection()
             }
-            //updated using onFailure and placing retry option within onFailure
-            @SuppressLint("SetTextI18n")
-            override fun onFailure(call: Call<List<QuestionModelItem>>, t: Throwable) {
-                Toast.makeText(this@MainActivity,"No Network Connection",Toast.LENGTH_SHORT).show()
+        }
 
-                buttonNext.text ="Retry"
-                buttonNext.setOnClickListener {
-                    retryConnection()
-                }
-                Log.e("Fail","Failed to get data")
+        lifecycleScope.launch(Dispatchers.Main+handler){
+            val response = retro.getQuestionCat(type)
+            if(response.isSuccessful){
+                listA= response.body()!!
+                setQuestion()
             }
-        })
+        }
     }
 
+//    private fun getQuestion() {
+//        val retro = Retro().getRetroClient().create(QuestionApi::class.java)
+//        retro.getQuestionCat(type).enqueue(object :Callback<List<QuestionModelItem>>{
+//            override fun onResponse(
+//                call: Call<List<QuestionModelItem>>,
+//                response: Response <List<QuestionModelItem>>
+//            ) {
+//                //Changed to using okHTTP logging
+//                listA = response.body()!!
+//                setQuestion()
+//            }
+//            //updated using onFailure and placing retry option within onFailure
+//            @SuppressLint("SetTextI18n")
+//            override fun onFailure(call: Call<List<QuestionModelItem>>, t: Throwable) {
+//                Toast.makeText(this@MainActivity,"No Network Connection",Toast.LENGTH_SHORT).show()
+//
+//                buttonNext.text ="Retry"
+//                buttonNext.setOnClickListener {
+//                    retryConnection()
+//                }
+//                Log.e("Fail","Failed to get data")
+//            }
+//        })
+//    }
 
     @SuppressLint("SetTextI18n")
-    fun nextQuestion(){
+    fun setQuestion(){
         textView.text = listA[count].question //Questions
         val answerCorrect = listA[count].correctAnswer //Getting answer from API
         val answerWrong:List<String> = listA[count].incorrectAnswers
@@ -132,6 +152,13 @@ class MainActivity : AppCompatActivity() {
             1
         else
             0
+    }
+
+    private fun retryConnection(){
+        val intent2 = Intent(this, MainActivity::class.java)
+        intent2.putExtra("randomType",type)
+        startActivity(intent2)
+        finish()
     }
 
     @Suppress("UNUSED_PARAMETER")
