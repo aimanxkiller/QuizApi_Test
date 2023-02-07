@@ -1,5 +1,7 @@
-package com.example.apitestquiz
+package com.example.apitestquiz.network
 
+import com.example.apitestquiz.model.QuestionModelItem
+import com.example.apitestquiz.model.QuizCat
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

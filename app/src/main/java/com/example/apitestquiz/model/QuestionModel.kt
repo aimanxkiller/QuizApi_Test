@@ -1,3 +1,3 @@
-package com.example.apitestquiz
+package com.example.apitestquiz.model
 
 class QuestionModel : ArrayList<QuestionModelItem>()

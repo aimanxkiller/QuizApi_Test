@@ -1,4 +1,4 @@
-package com.example.apitestquiz
+package com.example.apitestquiz.viewmodel
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,10 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.apitestquiz.network.QuestionApi
+import com.example.apitestquiz.model.QuizCat
+import com.example.apitestquiz.R
+import com.example.apitestquiz.network.Retro
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,8 +35,9 @@ class SelectionActivity : AppCompatActivity() {
 
     private fun spinnerEnabler(x: QuizCat){
 
-        val categoryY = x.gettitle()
-        val categoryX = x.getdetails()
+        val categoryY = x.getTitle()
+        val categoryX = x.getDetails()
+
 
         val arrayAdapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,categoryX)
         spinner.adapter = arrayAdapter
@@ -69,7 +74,7 @@ class SelectionActivity : AppCompatActivity() {
     }
 
     private fun buttonClick(){
-        val intent = Intent(this,MainActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("randomType",selection)
         startActivity(intent)
     }

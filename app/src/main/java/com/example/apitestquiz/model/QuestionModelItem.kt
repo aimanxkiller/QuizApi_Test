@@ -1,4 +1,4 @@
-package com.example.apitestquiz
+package com.example.apitestquiz.model
 
 data class QuestionModelItem(
     val category: String,

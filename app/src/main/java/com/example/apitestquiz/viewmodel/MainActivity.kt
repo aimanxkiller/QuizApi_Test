@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package com.example.apitestquiz
+package com.example.apitestquiz.viewmodel
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,6 +10,10 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import com.example.apitestquiz.network.QuestionApi
+import com.example.apitestquiz.model.QuestionModelItem
+import com.example.apitestquiz.R
+import com.example.apitestquiz.network.Retro
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -59,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 radioId = -1
                 radioGroup.clearCheck()
             }else {
-                val intent = Intent(this@MainActivity,EndActivity::class.java)
+                val intent = Intent(this@MainActivity, EndActivity::class.java)
                 Log.e("Ending", "The $score is total")
                 intent.putExtra("scoreFin",score.toString())
                 startActivity(intent)
@@ -68,7 +72,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun retryConnection(){
-        val intent2 = Intent(this,MainActivity::class.java)
+        val intent2 = Intent(this, MainActivity::class.java)
         startActivity(intent2)
     }
 

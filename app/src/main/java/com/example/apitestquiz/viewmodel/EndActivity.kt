@@ -1,4 +1,4 @@
-package com.example.apitestquiz
+package com.example.apitestquiz.viewmodel
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import com.example.apitestquiz.R
 
 class EndActivity : AppCompatActivity() {
 
@@ -24,7 +25,7 @@ class EndActivity : AppCompatActivity() {
         buttonReset = findViewById(R.id.buttonReset)
 
         buttonReset.setOnClickListener {
-            val intent = Intent(this,SelectionActivity::class.java)
+            val intent = Intent(this, SelectionActivity::class.java)
             startActivity(intent)
         }
     }
