@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 private val category:MutableList<String> = mutableListOf()
 private val category2:MutableList<String> = mutableListOf()
+
 data class QuizCat(
     @SerializedName("Arts & Literature") val ArtsLiterature: List<String>,
     @SerializedName("Film & TV")val FilmTV: List<String>,

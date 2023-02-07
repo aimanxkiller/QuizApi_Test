@@ -30,20 +30,7 @@ class SelectionActivity : AppCompatActivity() {
     }
 
     private fun spinnerEnabler(x: QuizCat){
-//        category.add(x.SportLeisure.toString())
-//        category.add(x.SocietyCulture.toString())
-//        category.add(x.Science.toString())
-//        category.add(x.Music.toString())
-//        category.add(x.History.toString())
-//        category.add(x.Geography.toString())
-//        category.add(x.GeneralKnowledge.toString())
-//        category.add(x.ArtsLiterature.toString())
-//        category.add(x.FoodDrink.toString())
-//        category.add(x.FilmTV.toString())
-//
-//        category.forEachIndexed { index, s ->
-//            category[index]=category[index].replace("[","").replace("]","")
-//        }
+
         val categoryY = x.gettitle()
         val categoryX = x.getdetails()
 
@@ -59,7 +46,6 @@ class SelectionActivity : AppCompatActivity() {
             ) {
                 val y = categoryY[position].split(",")
                 selection = y[0]
-                Toast.makeText(this@SelectionActivity, selection, Toast.LENGTH_SHORT).show()
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
@@ -75,9 +61,7 @@ class SelectionActivity : AppCompatActivity() {
                 }else{
                     Toast.makeText(applicationContext,"Error",Toast.LENGTH_SHORT).show()
                 }
-
             }
-
             override fun onFailure(call: Call<QuizCat>, t: Throwable) {
                 Log.e("Fail","Failed to get data: "+ t.message)
             }
@@ -89,5 +73,4 @@ class SelectionActivity : AppCompatActivity() {
         intent.putExtra("randomType",selection)
         startActivity(intent)
     }
-
 }
