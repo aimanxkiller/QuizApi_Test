@@ -8,39 +8,44 @@
     <RadioGroup
 
         android:id="@+id/radioGroup"
-        android:paddingHorizontal="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerInParent="true"
+        android:paddingHorizontal="25dp">
 
         <RadioButton
-            android:justificationMode="inter_word"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/one"
             android:id="@+id/radioOne"
-            android:onClick="checkButton" />
-        <RadioButton
-            android:justificationMode="inter_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/two"
+            android:justificationMode="inter_word"
+            android:onClick="checkButton"
+            android:text="@string/one" />
+
+        <RadioButton
             android:id="@+id/radioTwo"
-            android:onClick="checkButton"/>
-        <RadioButton
-            android:justificationMode="inter_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/three"
+            android:justificationMode="inter_word"
+            android:onClick="checkButton"
+            android:text="@string/two" />
+
+        <RadioButton
             android:id="@+id/radioThree"
-            android:onClick="checkButton"/>
-        <RadioButton
-            android:justificationMode="inter_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/four"
+            android:justificationMode="inter_word"
+            android:onClick="checkButton"
+            android:text="@string/three" />
+
+        <RadioButton
             android:id="@+id/radioFour"
-            android:onClick="checkButton"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
+            android:onClick="checkButton"
+            android:text="@string/four" />
 
     </RadioGroup>
 

@@ -66,6 +66,7 @@ class SelectionActivity : AppCompatActivity() {
                 retryConnection()
             }
         }
+
         lifecycleScope.launch(Dispatchers.Main+handler){
             val response = retro.getCategories().awaitResponse()
             if(response.isSuccessful){

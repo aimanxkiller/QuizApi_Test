@@ -87,7 +87,6 @@ class MainActivity : AppCompatActivity() {
                 retryConnection()
             }
         }
-
         lifecycleScope.launch(Dispatchers.Main+handler){
             val response = retro.getQuestionCat(type)
             if(response.isSuccessful){
