@@ -16,6 +16,13 @@
         android:theme="@style/Theme.ApiTestQuiz"
         tools:targetApi="31">
         <activity
+            android:name=".viewmodel.ViewHolder"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".viewmodel.MainActivity"
             android:exported="false">
             <meta-data

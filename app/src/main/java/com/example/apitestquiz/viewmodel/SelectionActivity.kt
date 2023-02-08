@@ -18,13 +18,23 @@ import retrofit2.*
 class SelectionActivity : AppCompatActivity() {
     private lateinit var spinner:Spinner
     private lateinit var buttonNext:Button
+    private lateinit var buttonTester:Button
     lateinit var selection:String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_selection)
         buttonNext = findViewById(R.id.buttonSel)
         spinner = findViewById(R.id.dropdownList)
+        buttonTester = findViewById(R.id.buttonTester)
+
+        buttonTester.setOnClickListener {
+            val intent = Intent(this, ViewHolder::class.java)
+            intent.putExtra("randomType",selection)
+            startActivity(intent)
+            finish()
+        }
 
         getQuizCatCoroutine()
 //        getQuizCat()

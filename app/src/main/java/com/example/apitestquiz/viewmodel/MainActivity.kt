@@ -91,6 +91,7 @@ class MainActivity : AppCompatActivity() {
             val response = retro.getQuestionCat(type)
             if(response.isSuccessful){
                 listA= response.body()!!
+                Log.e("Size", listA.size.toString())
                 setQuestion()
             }
         }
