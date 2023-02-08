@@ -29,17 +29,19 @@ class SelectionActivity : AppCompatActivity() {
         spinner = findViewById(R.id.dropdownList)
         buttonTester = findViewById(R.id.buttonTester)
 
-        buttonTester.setOnClickListener {
-            val intent = Intent(this, ViewHolder::class.java)
-            intent.putExtra("randomType",selection)
-            startActivity(intent)
-            finish()
-        }
+
 
         getQuizCatCoroutine()
 //        getQuizCat()
         buttonNext.setOnClickListener {
             buttonClick()
+        }
+
+        buttonTester.setOnClickListener {
+            val intent = Intent(this, ViewHolder::class.java)
+            intent.putExtra("randomType",selection)
+            startActivity(intent)
+            finish()
         }
     }
 

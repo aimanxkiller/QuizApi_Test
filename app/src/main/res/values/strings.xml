@@ -11,4 +11,5 @@
     <string name="restart_nquiz">Restart \nQuiz</string>
     <string name="please_select_a_topic_n_from_the_list_below">Please Select A Topic \n From The List Below</string>
     <string name="nextSel">Next</string>
+    <string name="slideview">SlideView</string>
 </resources>

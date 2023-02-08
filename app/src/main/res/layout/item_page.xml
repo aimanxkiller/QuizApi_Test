@@ -19,7 +19,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:justificationMode="inter_word"
-            android:onClick="checkButton"
             android:text="@string/one" />
 
         <RadioButton
@@ -27,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:justificationMode="inter_word"
-            android:onClick="checkButton"
             android:text="@string/two" />
 
         <RadioButton
@@ -35,7 +33,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:justificationMode="inter_word"
-            android:onClick="checkButton"
             android:text="@string/three" />
 
         <RadioButton
@@ -43,7 +40,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:justificationMode="inter_word"
-            android:onClick="checkButton"
             android:text="@string/four" />
 
     </RadioGroup>
