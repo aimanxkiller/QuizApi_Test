@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.apitestquiz.network.QuestionApi
 import com.example.apitestquiz.model.QuizCat
 import com.example.apitestquiz.R
-import com.example.apitestquiz.network.Retro
+import com.example.apitestquiz.data.Retro
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.*
 import androidx.lifecycle.*

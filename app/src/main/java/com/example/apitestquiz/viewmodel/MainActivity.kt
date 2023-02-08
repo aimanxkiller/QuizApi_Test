@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.apitestquiz.network.QuestionApi
 import com.example.apitestquiz.model.QuestionModelItem
 import com.example.apitestquiz.R
-import com.example.apitestquiz.network.Retro
+import com.example.apitestquiz.data.Retro
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
