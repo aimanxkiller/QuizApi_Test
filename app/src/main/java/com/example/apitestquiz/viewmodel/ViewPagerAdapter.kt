@@ -1,62 +1,75 @@
 package com.example.apitestquiz.viewmodel
 
-import android.animation.ObjectAnimator
-import android.provider.MediaStore.Audio.Radio
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.children
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import com.example.apitestquiz.R
 import com.example.apitestquiz.model.QuestionModelItem
 
 class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Adapter<ViewPagerAdapter.Pager2ViewHolder>() {
     lateinit var radioButton: RadioButton
+    private var context: Context? = null
+
+    var score:IntArray = IntArray(list.size)
+    var answerCorrect = Array(list.size){""}
+    var count:IntArray = IntArray(list.size)
 
     inner class Pager2ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
-
         val radioGroup: RadioGroup = itemView.findViewById(R.id.radioGroup2)
         val textView: TextView = itemView.findViewById(R.id.textQuestion2)
         val buttonNext: Button = itemView.findViewById(R.id.buttonNext2)
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerAdapter.Pager2ViewHolder {
+        context=parent.context
         return Pager2ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_page,parent,false))
     }
-
 
     override fun getItemCount(): Int {
         return list.size
     }
-
     override fun onBindViewHolder(holder: ViewPagerAdapter.Pager2ViewHolder, position:Int){
         holder.textView.text = list[position].question
-        var answers = getAnswerCollection(list,position)
+        val answers = getAnswerCollection(list,position)
 
         holder.radioGroup.children.forEachIndexed { index, view ->
             radioButton = view as RadioButton
             radioButton.text = answers[index]
         }
 
-        holder.buttonNext.setOnClickListener {
+        holder.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            val radio:RadioButton = holder.radioGroup.findViewById(checkedId)
+            if(radio.text.toString().equals(answerCorrect[position],true)){
+                if (score[position]<=0)
+                    count[position] = 1
+                    score[position] = 1
+            }else{
+                if (score[position]>=0){
+                    count[position] = 1
+                    score[position] = 0
+                }
+            }
+        }
 
+        holder.buttonNext.setOnClickListener {
+            val context = holder.itemView.context
+            if(count.sum() == 5){
+            val intent = Intent (context, EndActivity::class.java)
+            intent.putExtra("scoreFin",score.sum().toString())
+            context.startActivity(intent)
+            }else{ Toast.makeText(context,"Answer All Question",Toast.LENGTH_SHORT).show() }
         }
     }
 
-
-
     private fun getAnswerCollection(x:List<QuestionModelItem>,y:Int): MutableList<String> {
-        val answerCorrect = x[y].correctAnswer //Getting answer from API
+        answerCorrect[y] = x[y].correctAnswer //Getting answer from API
         val answerWrong:List<String> = x[y].incorrectAnswers
-        val answerCollect = answerWrong + answerCorrect  //Getting answer collections and shuffling
+        val answerCollect = answerWrong + x[y].correctAnswer  //Getting answer collections and shuffling
         val answerShuffle = answerCollect.toMutableList()
         answerShuffle.shuffle()
 
@@ -64,3 +77,4 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
     }
 
 }
+

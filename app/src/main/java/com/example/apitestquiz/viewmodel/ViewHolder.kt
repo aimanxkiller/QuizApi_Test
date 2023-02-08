@@ -1,12 +1,9 @@
 package com.example.apitestquiz.viewmodel
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.apitestquiz.R
 import com.example.apitestquiz.data.Retro
@@ -26,9 +23,7 @@ class ViewHolder : AppCompatActivity() {
         view_pager2 = findViewById(R.id.view_pager2)
         type= intent.getStringExtra("randomType") !!
 
-
         getQuestionCoroutine()
-
 
     }
 
@@ -37,15 +32,29 @@ class ViewHolder : AppCompatActivity() {
         val handler = CoroutineExceptionHandler { _, throwable ->
             Toast.makeText(this@ViewHolder,"No internet connection : $throwable", Toast.LENGTH_SHORT).show()
         }
-        lifecycleScope.launch(Dispatchers.Main+handler){
-            val response = retro.getQuestionCat(type)
-            if(response.isSuccessful){
-                listA= response.body()!!
-                view_pager2.adapter = ViewPagerAdapter(listA)
 
+        lifecycleScope.launch(Dispatchers.Main+handler) {
+            val x = async {
+                val response = retro.getQuestionCat(type)
+                if(response.isSuccessful){
+                    listA= response.body()!!
+//                    view_pager2.adapter = ViewPagerAdapter(listA)
+                }
+                return@async listA
             }
+
+            view_pager2.adapter = ViewPagerAdapter(x.await())
         }
+
+//        lifecycleScope.launch(Dispatchers.Main+handler){
+//            val response = retro.getQuestionCat(type)
+//            if(response.isSuccessful){
+//                listA= response.body()!!
+//                view_pager2.adapter = ViewPagerAdapter(listA)
+//            }
+//        }
     }
+
 
 
 }
