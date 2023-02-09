@@ -1,5 +1,7 @@
 package com.example.apitestquiz.viewmodel
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +35,7 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
     override fun getItemCount(): Int {
         return list.size
     }
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewPagerAdapter.Pager2ViewHolder, position:Int){
         holder.textView.text = list[position].question
         val answers = getAnswerCollection(list,position)
@@ -45,8 +48,9 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
         holder.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val radio:RadioButton = holder.radioGroup.findViewById(checkedId)
             if(radio.text.toString().equals(answerCorrect[position],true)){
-                if (score[position]<=0)
+                if (score[position]<=0) {
                     count[position] = 1
+                }
                     score[position] = 1
             }else{
                 if (score[position]>=0){
@@ -56,15 +60,6 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
             }
         }
 
-//        holder.buttonRight.setOnClickListener {
-//            val context = holder.itemView.context
-//            if(count.sum() == 5){
-//            val intent = Intent (context, EndActivity::class.java)
-//            intent.putExtra("scoreFin",score.sum().toString())
-//            context.startActivity(intent)
-//            }else{ Toast.makeText(context,"Answer All Question",Toast.LENGTH_SHORT).show() }
-//        }
-
         when(position){
             0-> {
                 holder.buttonLeft.visibility = View.INVISIBLE
@@ -72,8 +67,7 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
                 holder.buttonRight.text = "Next"
                 holder.buttonRight.setOnClickListener {
                     Log.e("Debug","ButtonClicked")
-                    val layout = RelativeLayout(holder.itemView.context)
-                    holder.itemView.scrollTo(150,0)
+                    (holder.itemView.parent as RecyclerView).smoothScrollToPosition(position + 1)
                 }
             }
             4 ->{
@@ -81,6 +75,16 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
                 holder.buttonRight.visibility = View.VISIBLE
                 holder.buttonRight.text = "Finish"
                 holder.buttonLeft.text = "Previous"
+
+                holder.buttonRight.setOnClickListener {
+                    val context = holder.itemView.context
+                    if(count.sum() == 5){
+                        val intent = Intent (context, EndActivity::class.java)
+                        intent.putExtra("scoreFin",score.sum().toString())
+                        context.startActivity(intent)
+                    }else{ Toast.makeText(context,"Answer All Question",Toast.LENGTH_SHORT).show() }
+                }
+
             }
             else -> {
                 holder.buttonLeft.visibility = View.VISIBLE
