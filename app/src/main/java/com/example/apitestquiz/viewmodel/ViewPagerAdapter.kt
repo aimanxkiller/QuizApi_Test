@@ -69,6 +69,17 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
             context.startActivity(intent)
             }else{ Toast.makeText(context,"Answer All Question",Toast.LENGTH_SHORT).show() }
         }
+
+        when(position){
+            4 ->{
+                holder.buttonNext.visibility = View.VISIBLE
+                holder.buttonNext.text = "Finish"
+            }
+            else -> {
+                holder.buttonNext.visibility = View.INVISIBLE
+                holder.buttonNext.text = "Next"
+            }
+        }
     }
 
     private fun getAnswerCollection(x:List<QuestionModelItem>,y:Int): MutableList<String> {
