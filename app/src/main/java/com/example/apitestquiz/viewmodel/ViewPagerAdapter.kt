@@ -25,7 +25,9 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
 
     }
 
-
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerAdapter.Pager2ViewHolder {
 
 
