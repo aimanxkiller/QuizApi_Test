@@ -16,8 +16,6 @@ import kotlinx.coroutines.launch
 
 class ViewPagerFragmentTest : AppCompatActivity() {
 
-
-
     private var type:String = "science"
     private lateinit var listA : List<QuestionModelItem>
     private lateinit var view_pager2: ViewPager2
@@ -26,8 +24,9 @@ class ViewPagerFragmentTest : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pager_fragment_test)
 
+        //Fragment begins
         var pager = findViewById<ViewPager2>(R.id.view_pager2_fragment)
-        pager.adapter = MyAdapterFragment(supportFragmentManager,lifecycle)
+//        pager.adapter = MyAdapterFragment(supportFragmentManager,lifecycle)
 
         type= intent.getStringExtra("randomType") !!
 

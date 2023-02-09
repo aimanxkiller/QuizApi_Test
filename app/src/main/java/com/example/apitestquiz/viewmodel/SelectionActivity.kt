@@ -19,6 +19,7 @@ class SelectionActivity : AppCompatActivity() {
     private lateinit var spinner:Spinner
     private lateinit var buttonNext:Button
     private lateinit var buttonTester:Button
+    private lateinit var buttonTester2:Button
     lateinit var selection:String
 
 
@@ -28,7 +29,7 @@ class SelectionActivity : AppCompatActivity() {
         buttonNext = findViewById(R.id.buttonSel)
         spinner = findViewById(R.id.dropdownList)
         buttonTester = findViewById(R.id.buttonTester)
-
+        buttonTester2 = findViewById(R.id.buttonTester2)
 
 
         getQuizCatCoroutine()
@@ -39,6 +40,13 @@ class SelectionActivity : AppCompatActivity() {
 
         // Testing different pager setups here
         buttonTester.setOnClickListener {
+            val intent = Intent(this, ViewHolderActivity::class.java)
+            intent.putExtra("randomType",selection)
+            startActivity(intent)
+            finish()
+        }
+
+        buttonTester2.setOnClickListener {
             val intent = Intent(this, ViewPagerFragmentTest::class.java)
             intent.putExtra("randomType",selection)
             startActivity(intent)

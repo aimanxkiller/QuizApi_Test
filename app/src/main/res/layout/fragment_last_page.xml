@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Middle Page"
+        android:text="Last Page"
         android:textSize="30sp"/>
 
 </FrameLayout>

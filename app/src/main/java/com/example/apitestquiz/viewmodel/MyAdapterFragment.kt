@@ -10,13 +10,13 @@ import com.example.apitestquiz.FragmentMidPage
 
 class MyAdapterFragment(fragmentManager: FragmentManager,lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
-        return 3
+        return 5
     }
 
     override fun createFragment(position: Int): Fragment {
         when(position){
             0-> return FragmentFirstPage()
-            3-> return FragmentLastPage()
+            4-> return FragmentLastPage()
             else -> return FragmentMidPage()
         }
     }
