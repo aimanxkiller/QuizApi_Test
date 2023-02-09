@@ -1,6 +1,5 @@
 package com.example.apitestquiz.viewmodel
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,22 +11,26 @@ import com.example.apitestquiz.R
 import com.example.apitestquiz.model.QuestionModelItem
 
 class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Adapter<ViewPagerAdapter.Pager2ViewHolder>() {
-    lateinit var radioButton: RadioButton
-    private var context: Context? = null
+    private lateinit var radioButton: RadioButton
 
-    var score:IntArray = IntArray(list.size)
-    var answerCorrect = Array(list.size){""}
-    var count:IntArray = IntArray(list.size)
+    private var score:IntArray = IntArray(list.size)
+    private var answerCorrect = Array(list.size){""}
+    private var count:IntArray = IntArray(list.size)
 
     inner class Pager2ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
+        //item_page content
         val radioGroup: RadioGroup = itemView.findViewById(R.id.radioGroup2)
         val textView: TextView = itemView.findViewById(R.id.textQuestion2)
         val buttonNext: Button = itemView.findViewById(R.id.buttonNext2)
+
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerAdapter.Pager2ViewHolder {
-        context=parent.context
+
+
         return Pager2ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_page,parent,false))
+
     }
 
     override fun getItemCount(): Int {
@@ -42,7 +45,7 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
             radioButton.text = answers[index]
         }
 
-        holder.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+        holder.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val radio:RadioButton = holder.radioGroup.findViewById(checkedId)
             if(radio.text.toString().equals(answerCorrect[position],true)){
                 if (score[position]<=0)

@@ -38,7 +38,7 @@ class SelectionActivity : AppCompatActivity() {
         }
 
         buttonTester.setOnClickListener {
-            val intent = Intent(this, ViewHolder::class.java)
+            val intent = Intent(this, ViewHolderActivity::class.java)
             intent.putExtra("randomType",selection)
             startActivity(intent)
             finish()

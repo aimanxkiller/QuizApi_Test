@@ -12,4 +12,7 @@
     <string name="please_select_a_topic_n_from_the_list_below">Please Select A Topic \n From The List Below</string>
     <string name="nextSel">Next</string>
     <string name="slideview">SlideView</string>
+    <string name="next_page">Next Page</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

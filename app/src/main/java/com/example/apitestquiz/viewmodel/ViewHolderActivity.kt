@@ -11,7 +11,7 @@ import com.example.apitestquiz.model.QuestionModelItem
 import com.example.apitestquiz.network.QuestionApi
 import kotlinx.coroutines.*
 
-class ViewHolder : AppCompatActivity() {
+class ViewHolderActivity : AppCompatActivity() {
 
     private var type:String = "science"
     private lateinit var listA : List<QuestionModelItem>
@@ -20,8 +20,9 @@ class ViewHolder : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_holder)
-        view_pager2 = findViewById(R.id.view_pager2)
+
         type= intent.getStringExtra("randomType") !!
+        view_pager2 = findViewById(R.id.view_pager2)
 
         getQuestionCoroutine()
 
@@ -30,7 +31,7 @@ class ViewHolder : AppCompatActivity() {
     private fun getQuestionCoroutine(){
         val retro = Retro().getRetroClient().create(QuestionApi::class.java)
         val handler = CoroutineExceptionHandler { _, throwable ->
-            Toast.makeText(this@ViewHolder,"No internet connection : $throwable", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ViewHolderActivity,"No internet connection : $throwable", Toast.LENGTH_SHORT).show()
         }
 
         lifecycleScope.launch(Dispatchers.Main+handler) {
@@ -46,13 +47,6 @@ class ViewHolder : AppCompatActivity() {
             view_pager2.adapter = ViewPagerAdapter(x.await())
         }
 
-//        lifecycleScope.launch(Dispatchers.Main+handler){
-//            val response = retro.getQuestionCat(type)
-//            if(response.isSuccessful){
-//                listA= response.body()!!
-//                view_pager2.adapter = ViewPagerAdapter(listA)
-//            }
-//        }
     }
 
 
