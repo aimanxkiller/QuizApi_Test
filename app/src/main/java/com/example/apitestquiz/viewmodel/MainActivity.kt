@@ -113,8 +113,8 @@ class MainActivity : AppCompatActivity() {
 //            override fun onFailure(call: Call<List<QuestionModelItem>>, t: Throwable) {
 //                Toast.makeText(this@MainActivity,"No Network Connection",Toast.LENGTH_SHORT).show()
 //
-//                buttonNext.text ="Retry"
-//                buttonNext.setOnClickListener {
+//                buttonRight.text ="Retry"
+//                buttonRight.setOnClickListener {
 //                    retryConnection()
 //                }
 //                Log.e("Fail","Failed to get data")

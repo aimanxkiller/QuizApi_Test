@@ -1,6 +1,6 @@
 package com.example.apitestquiz.viewmodel
 
-import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,18 +21,13 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
         //item_page content
         val radioGroup: RadioGroup = itemView.findViewById(R.id.radioGroup2)
         val textView: TextView = itemView.findViewById(R.id.textQuestion2)
-        val buttonNext: Button = itemView.findViewById(R.id.buttonNext2)
-
+        val buttonRight: Button = itemView.findViewById(R.id.buttonRight)
+        val buttonLeft: Button = itemView.findViewById(R.id.buttonLeft)
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerAdapter.Pager2ViewHolder {
-
-
         return Pager2ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_page,parent,false))
-
     }
 
     override fun getItemCount(): Int {
@@ -61,25 +56,40 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
             }
         }
 
-        holder.buttonNext.setOnClickListener {
-            val context = holder.itemView.context
-            if(count.sum() == 5){
-            val intent = Intent (context, EndActivity::class.java)
-            intent.putExtra("scoreFin",score.sum().toString())
-            context.startActivity(intent)
-            }else{ Toast.makeText(context,"Answer All Question",Toast.LENGTH_SHORT).show() }
-        }
+//        holder.buttonRight.setOnClickListener {
+//            val context = holder.itemView.context
+//            if(count.sum() == 5){
+//            val intent = Intent (context, EndActivity::class.java)
+//            intent.putExtra("scoreFin",score.sum().toString())
+//            context.startActivity(intent)
+//            }else{ Toast.makeText(context,"Answer All Question",Toast.LENGTH_SHORT).show() }
+//        }
 
         when(position){
+            0-> {
+                holder.buttonLeft.visibility = View.INVISIBLE
+                holder.buttonRight.visibility = View.VISIBLE
+                holder.buttonRight.text = "Next"
+                holder.buttonRight.setOnClickListener {
+                    Log.e("Debug","ButtonClicked")
+                    val layout = RelativeLayout(holder.itemView.context)
+                    holder.itemView.scrollTo(150,0)
+                }
+            }
             4 ->{
-                holder.buttonNext.visibility = View.VISIBLE
-                holder.buttonNext.text = "Finish"
+                holder.buttonLeft.visibility = View.VISIBLE
+                holder.buttonRight.visibility = View.VISIBLE
+                holder.buttonRight.text = "Finish"
+                holder.buttonLeft.text = "Previous"
             }
             else -> {
-                holder.buttonNext.visibility = View.INVISIBLE
-                holder.buttonNext.text = "Next"
+                holder.buttonLeft.visibility = View.VISIBLE
+                holder.buttonRight.visibility = View.VISIBLE
+                holder.buttonRight.text = "Next"
+                holder.buttonLeft.text = "Previous"
             }
         }
+
     }
 
     private fun getAnswerCollection(x:List<QuestionModelItem>,y:Int): MutableList<String> {

@@ -58,11 +58,23 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/buttonNext2"
+        android:id="@+id/buttonRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/radioGroup2"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="25dp"
         android:layout_marginTop="35dp"
-        android:text="@string/next" />
+        android:text="@string/right" />
+
+
+    <Button
+        android:id="@+id/buttonLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup2"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/left" />
 </RelativeLayout>
