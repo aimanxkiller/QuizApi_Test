@@ -37,8 +37,9 @@ class SelectionActivity : AppCompatActivity() {
             buttonClick()
         }
 
+        // Testing different pager setups here
         buttonTester.setOnClickListener {
-            val intent = Intent(this, ViewHolderActivity::class.java)
+            val intent = Intent(this, ViewPagerFragmentTest::class.java)
             intent.putExtra("randomType",selection)
             startActivity(intent)
             finish()
