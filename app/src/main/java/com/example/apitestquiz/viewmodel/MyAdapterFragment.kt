@@ -14,10 +14,10 @@ class MyAdapterFragment(fragmentManager: FragmentManager,lifecycle: Lifecycle) :
     }
 
     override fun createFragment(position: Int): Fragment {
-        when(position){
-            0-> return FragmentFirstPage()
-            4-> return FragmentLastPage()
-            else -> return FragmentMidPage()
+        return when(position){
+            0-> FragmentFirstPage()
+            4-> FragmentLastPage()
+            else -> FragmentMidPage()
         }
     }
 

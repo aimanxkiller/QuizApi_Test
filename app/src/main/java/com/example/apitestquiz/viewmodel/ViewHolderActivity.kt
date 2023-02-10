@@ -15,14 +15,14 @@ class ViewHolderActivity : AppCompatActivity() {
 
     private var type:String = "science"
     private lateinit var listA : List<QuestionModelItem>
-    private lateinit var view_pager2:ViewPager2
+    private lateinit var viewPager2:ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_holder)
 
         type= intent.getStringExtra("randomType") !!
-        view_pager2 = findViewById(R.id.view_pager2)
+        viewPager2 = findViewById(R.id.view_pager2)
 
         getQuestionCoroutine()
 
@@ -39,12 +39,12 @@ class ViewHolderActivity : AppCompatActivity() {
                 val response = retro.getQuestionCat(type)
                 if(response.isSuccessful){
                     listA= response.body()!!
-//                    view_pager2.adapter = ViewPagerAdapter(listA)
+//                    viewPager2.adapter = ViewPagerAdapter(listA)
                 }
                 return@async listA
             }
 
-            view_pager2.adapter = ViewPagerAdapter(x.await())
+            viewPager2.adapter = ViewPagerAdapter(x.await())
         }
 
     }

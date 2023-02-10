@@ -34,11 +34,15 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
     override fun getItemCount(): Int {
         return list.size
     }
+
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewPagerAdapter.Pager2ViewHolder, position:Int){
-        holder.textView.text = (list[position].question)
-        val answers = getAnswerCollection(list,position)
+        holder.textView.text = ("${position+1}. "+ list[position].question)
+        radioSettings(holder,position,getAnswerCollection(list,position))
+        buttonSettings(holder,position)
+    }
 
+    private fun radioSettings(holder: Pager2ViewHolder,position: Int,answers: MutableList<String>) {
         holder.radioGroup.children.forEachIndexed { index, view ->
             radioButton = view as RadioButton
             radioButton.text = answers[index]
@@ -50,7 +54,7 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
                 if (score[position]<=0) {
                     count[position] = 1
                 }
-                    score[position] = 1
+                score[position] = 1
             }else{
                 if (score[position]>=0){
                     count[position] = 1
@@ -58,7 +62,10 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
                 }
             }
         }
+    }
 
+    @SuppressLint("SetTextI18n")
+    private fun buttonSettings(holder: Pager2ViewHolder, position:Int) {
         holder.buttonRight.setOnClickListener {
             (holder.itemView.parent as RecyclerView).smoothScrollToPosition(position + 1)
         }
@@ -92,7 +99,6 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
                 holder.buttonRight.visibility = View.VISIBLE
             }
         }
-
     }
 
     private fun getAnswerCollection(x:List<QuestionModelItem>,y:Int): MutableList<String> {
