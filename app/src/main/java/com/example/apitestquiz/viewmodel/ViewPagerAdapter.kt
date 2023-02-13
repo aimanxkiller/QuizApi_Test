@@ -15,8 +15,9 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
     private lateinit var radioButton: RadioButton
 
     private var score:IntArray = IntArray(list.size)
-    private var answerCorrect = Array(list.size){""}
     private var count:IntArray = IntArray(list.size)
+    private var answerCorrect = Array(list.size){""}
+
 
     inner class Pager2ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
         //item_page content

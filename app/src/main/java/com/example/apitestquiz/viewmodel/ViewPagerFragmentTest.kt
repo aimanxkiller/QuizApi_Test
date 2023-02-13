@@ -1,32 +1,29 @@
 package com.example.apitestquiz.viewmodel
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.apitestquiz.R
 import com.example.apitestquiz.data.Retro
 import com.example.apitestquiz.model.QuestionModelItem
 import com.example.apitestquiz.network.QuestionApi
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+
+
+lateinit var pager : ViewPager2
 
 class ViewPagerFragmentTest : AppCompatActivity() {
 
     private var type:String = "science"
     private lateinit var listA : List<QuestionModelItem>
-    private lateinit var view_pager2: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pager_fragment_test)
-
-        //Fragment begins
-        var pager = findViewById<ViewPager2>(R.id.view_pager2_fragment)
-//        pager.adapter = MyAdapterFragment(supportFragmentManager,lifecycle)
+        pager = findViewById(R.id.view_pager2_fragment)
 
         type= intent.getStringExtra("randomType") !!
 
@@ -37,19 +34,22 @@ class ViewPagerFragmentTest : AppCompatActivity() {
     private fun getQuestionCoroutine(){
         val retro = Retro().getRetroClient().create(QuestionApi::class.java)
         val handler = CoroutineExceptionHandler { _, throwable ->
-            Toast.makeText(this@ViewPagerFragmentTest,"No internet connection : $throwable", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@ViewPagerFragmentTest,"$throwable", Toast.LENGTH_LONG).show()
         }
         lifecycleScope.launch(Dispatchers.Main+handler) {
-            val x = async {
+            async {
                 val response = retro.getQuestionCat(type)
                 if(response.isSuccessful){
                     listA= response.body()!!
+                    val fragment = supportFragmentManager
+                    delay(500)
+                    pager.adapter = MyAdapterFragment(fragment,lifecycle,listA)
                 }
-                return@async listA
             }
-
-            //inflate
-//          view_pager2.adapter = ViewPagerAdapter(x.await())
         }
+    }
+
+    fun getViewPager(): ViewPager2 {
+        return pager
     }
 }

@@ -11,7 +11,7 @@ class Retro {
         val gson = GsonBuilder().setLenient().create()
         val okhttpClientBuilder = OkHttpClient.Builder()
         val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        logging.setLevel(HttpLoggingInterceptor.Level.BASIC)
         okhttpClientBuilder.addInterceptor(logging)
 
         return Retrofit.Builder()

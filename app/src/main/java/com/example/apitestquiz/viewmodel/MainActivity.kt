@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         type = intent.getStringExtra("randomType")!!
 
         getQuestionCoroutine()
-
+        buttonNext.text="Next"
         buttonNext.setOnClickListener {
             buttonClick()
         }

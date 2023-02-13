@@ -33,7 +33,6 @@ class SelectionActivity : AppCompatActivity() {
 
 
         getQuizCatCoroutine()
-//        getQuizCat()
         buttonNext.setOnClickListener {
             buttonClick()
         }
@@ -45,7 +44,6 @@ class SelectionActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
         buttonTester2.setOnClickListener {
             val intent = Intent(this, ViewPagerFragmentTest::class.java)
             intent.putExtra("randomType",selection)
@@ -91,6 +89,7 @@ class SelectionActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Main+handler){
             val response = retro.getCategories().awaitResponse()
             if(response.isSuccessful){
+                delay(500)
                 spinnerEnabler(response.body()!!)
             }
         }
@@ -102,6 +101,7 @@ class SelectionActivity : AppCompatActivity() {
         finish()
     }
 
+    // Old retro calling not using coroutine
 //    private fun getQuizCat(){
 //        val retro = Retro().getRetroClient().create(QuestionApi::class.java)
 //        retro.getCategories().enqueue(object : Callback<QuizCat>{
