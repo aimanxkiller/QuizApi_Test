@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.example.apitestquiz.model.QuestionModelItem
-import com.example.apitestquiz.viewmodel.MainActivity
-import com.example.apitestquiz.viewmodel.ViewPagerFragmentTest
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +22,7 @@ private const val ARG_PARAM2 = "param2"
  */
 
 
-class FragmentFirstPage(list: QuestionModelItem, position: Int) : Fragment() {
+class FragmentFirstPage(list: List<QuestionModelItem>, position: Int) : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -61,8 +58,8 @@ class FragmentFirstPage(list: QuestionModelItem, position: Int) : Fragment() {
 
         buttonRight.text = "Next"
 
-        text.text = listA.question
-        radioSettings(view,getAnswerCollection(listA))
+        text.text = listA[pos].question
+        radioSettings(view,getAnswerCollection(listA[pos]))
         buttonSettings(view,pos)
 
         return view
@@ -71,7 +68,17 @@ class FragmentFirstPage(list: QuestionModelItem, position: Int) : Fragment() {
     private fun buttonSettings(holder: View, x: Int,){
 
         buttonRight.setOnClickListener {
-            ViewPagerFragmentTest.getViewPager
+            //Need to figure out how to transition to next fragment
+
+//            val nextFragment = FragmentMidPage(listA,pos+1)
+//            val args = Bundle()
+//            args.putInt("position", pos + 1)
+//            nextFragment.arguments = args
+//            val fragmentManager = requireActivity().supportFragmentManager
+//            val transaction = fragmentManager.beginTransaction()
+//            transaction.replace(R.id.view_pager2_fragment, nextFragment)
+//            transaction.addToBackStack(null)
+//            transaction.commit()
         }
 
     }

@@ -19,9 +19,9 @@ class MyAdapterFragment(
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
-            0-> FragmentFirstPage(list[position],position)
-            (list.size - 1)-> FragmentLastPage()
-            else -> FragmentMidPage()
+            0-> FragmentFirstPage(list,position)
+            (list.size - 1)-> FragmentLastPage(list,position)
+            else -> FragmentMidPage(list,position)
         }
     }
 
