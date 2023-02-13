@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.adapter.FragmentViewHolder
 import com.example.apitestquiz.FragmentFirstPage
-import com.example.apitestquiz.FragmentLastPage
-import com.example.apitestquiz.FragmentMidPage
+import com.example.apitestquiz.fragment.FragmentLastPage
+import com.example.apitestquiz.fragment.FragmentMidPage
 import com.example.apitestquiz.model.QuestionModelItem
 
 class MyAdapterFragment(

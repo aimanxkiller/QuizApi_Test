@@ -1,5 +1,6 @@
 package com.example.apitestquiz
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -58,6 +59,7 @@ class FragmentFirstPage(list: List<QuestionModelItem>, position: Int) : Fragment
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,7 +69,7 @@ class FragmentFirstPage(list: List<QuestionModelItem>, position: Int) : Fragment
         text = view.findViewById(R.id.textQuestion2)
         radioGroup = view.findViewById(R.id.radioGroup2)
 
-        text.text = listA[pos].question
+        text.text = "${pos+1}. " + listA[pos].question
         radioSettings(getAnswerCollection(listA[pos]))
 
         return view

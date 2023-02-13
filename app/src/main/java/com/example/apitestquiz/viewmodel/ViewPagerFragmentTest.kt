@@ -103,8 +103,6 @@ class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
     override fun onDataPass(score: Int, count: Int,position:Int) {
         scoreQ[position] = score
         countQ[position] = count
-
-        setButtons(position)
     }
 
 }

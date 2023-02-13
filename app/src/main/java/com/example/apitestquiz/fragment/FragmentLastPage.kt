@@ -1,4 +1,4 @@
-package com.example.apitestquiz
+package com.example.apitestquiz.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -11,6 +11,8 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
+import com.example.apitestquiz.FragmentCommunicator
+import com.example.apitestquiz.R
 import com.example.apitestquiz.model.QuestionModelItem
 
 // TODO: Rename parameter arguments, choose names that match
@@ -70,7 +72,7 @@ class FragmentLastPage(list: List<QuestionModelItem>, position: Int) : Fragment(
         text = view.findViewById(R.id.textQuestion2)
         radioGroup = view.findViewById(R.id.radioGroup2)
 
-        text.text = listA[pos].question
+        text.text = "${pos+1}. " +listA[pos].question
         radioSettings(getAnswerCollection(listA[pos]))
 
         return view
