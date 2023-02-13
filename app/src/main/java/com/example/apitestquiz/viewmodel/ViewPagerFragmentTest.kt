@@ -48,7 +48,6 @@ class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
                 setButtons(position)
             }
         })
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -92,7 +91,6 @@ class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
                 val response = retro.getQuestionCat(type)
                 if(response.isSuccessful){
                     listA= response.body()!!
-                    delay(500)
                     scoreQ= IntArray(listA.size)
                     countQ= IntArray(listA.size)
                     val adapter=MyAdapterFragment(context as AppCompatActivity,listA)
