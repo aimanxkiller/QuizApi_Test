@@ -8,8 +8,29 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager2_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
+        android:layout_height="500dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
+
+    <Button
+        android:id="@+id/buttonLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_below="@+id/view_pager2_fragment"
+        android:text="Left"
+
         />
 
+    <Button
+        android:id="@+id/buttonRight"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="25dp"
+        android:layout_below="@+id/view_pager2_fragment"
+        android:text="Right" />
 </RelativeLayout>

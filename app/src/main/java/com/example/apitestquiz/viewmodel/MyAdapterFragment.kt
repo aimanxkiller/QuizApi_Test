@@ -1,26 +1,27 @@
 package com.example.apitestquiz.viewmodel
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.apitestquiz.FragmentFirstPage
 import com.example.apitestquiz.FragmentLastPage
 import com.example.apitestquiz.FragmentMidPage
 import com.example.apitestquiz.model.QuestionModelItem
+import kotlinx.coroutines.CoroutineScope
 
 class MyAdapterFragment(
-    fragmentManager: FragmentManager,
-    lifecycle: Lifecycle, var list: List<QuestionModelItem>
-) : FragmentStateAdapter(fragmentManager, lifecycle) {
+    activity: AppCompatActivity,
+    private val list: List<QuestionModelItem>
+):FragmentStateAdapter(activity){
+
     override fun getItemCount(): Int {
         return list.size
     }
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
-            0-> FragmentFirstPage(list,position)
-            (list.size - 1)-> FragmentLastPage(list,position)
+            0 -> FragmentFirstPage(list,position)
+            list.size -> FragmentLastPage(list,position)
             else -> FragmentMidPage(list,position)
         }
     }

@@ -33,8 +33,6 @@ class FragmentLastPage(list: List<QuestionModelItem>, position: Int) : Fragment(
 
     lateinit var text: TextView
     lateinit var radioGroup: RadioGroup
-    lateinit var buttonRight: Button
-    lateinit var buttonLeft: Button
     lateinit var radioButton: RadioButton
     lateinit var answerCorrect:String
 
@@ -59,29 +57,11 @@ class FragmentLastPage(list: List<QuestionModelItem>, position: Int) : Fragment(
         val view = inflater.inflate(R.layout.fragment_last_page, container, false)
         text = view.findViewById(R.id.textQuestion2)
         radioGroup = view.findViewById(R.id.radioGroup2)
-        buttonRight = view.findViewById(R.id.buttonRight)
-        buttonLeft = view.findViewById(R.id.buttonLeft)
-
-        buttonLeft.text = "Previous"
-        buttonRight.text = "Finish"
 
         text.text = listA[pos].question
         radioSettings(view,getAnswerCollection(listA[pos]))
-        buttonSettings(view,pos)
 
         return view
-
-    }
-
-    private fun buttonSettings(holder: View, x: Int,){
-
-        buttonLeft.setOnClickListener {
-            //TODO - Figuring out to move to previous fragment
-        }
-        buttonRight.setOnClickListener {
-            //TODO -  Figuring out to move to end page and calculate
-        }
-
     }
 
     private fun radioSettings(holder: View, answerCollection: MutableList<String>,){

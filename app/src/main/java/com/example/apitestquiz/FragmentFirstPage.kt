@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.example.apitestquiz.model.QuestionModelItem
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,7 +32,6 @@ class FragmentFirstPage(list: List<QuestionModelItem>, position: Int) : Fragment
 
     lateinit var text:TextView
     lateinit var radioGroup: RadioGroup
-    lateinit var buttonRight: Button
     lateinit var radioButton:RadioButton
     lateinit var answerCorrect:String
 
@@ -54,33 +54,11 @@ class FragmentFirstPage(list: List<QuestionModelItem>, position: Int) : Fragment
         var view = inflater.inflate(R.layout.fragment_first_page, container, false)
         text = view.findViewById(R.id.textQuestion2)
         radioGroup = view.findViewById(R.id.radioGroup2)
-        buttonRight = view.findViewById(R.id.buttonRight)
-
-        buttonRight.text = "Next"
 
         text.text = listA[pos].question
         radioSettings(view,getAnswerCollection(listA[pos]))
-        buttonSettings(view,pos)
 
         return view
-    }
-
-    private fun buttonSettings(holder: View, x: Int,){
-
-        buttonRight.setOnClickListener {
-            //Need to figure out how to transition to next fragment
-
-//            val nextFragment = FragmentMidPage(listA,pos+1)
-//            val args = Bundle()
-//            args.putInt("position", pos + 1)
-//            nextFragment.arguments = args
-//            val fragmentManager = requireActivity().supportFragmentManager
-//            val transaction = fragmentManager.beginTransaction()
-//            transaction.replace(R.id.view_pager2_fragment, nextFragment)
-//            transaction.addToBackStack(null)
-//            transaction.commit()
-        }
-
     }
 
     private fun radioSettings(holder: View, answerCollection: MutableList<String>,){
@@ -104,8 +82,6 @@ class FragmentFirstPage(list: List<QuestionModelItem>, position: Int) : Fragment
             }
         }
     }
-
-
 
     private fun getAnswerCollection(x:QuestionModelItem): MutableList<String> {
         answerCorrect = x.correctAnswer
