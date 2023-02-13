@@ -18,4 +18,6 @@
     <string name="fragmentview">FragmentView</string>
     <string name="right">Right</string>
     <string name="left">Left</string>
+    <string name="right2">Right</string>
+    <string name="leftbutton2">LeftButton</string>
 </resources>
