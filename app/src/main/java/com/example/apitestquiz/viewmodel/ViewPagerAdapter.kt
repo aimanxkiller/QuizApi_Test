@@ -54,8 +54,8 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
             if(radio.text.toString().equals(answerCorrect[position],true)){
                 if (score[position]<=0) {
                     count[position] = 1
+                    score[position] = 1
                 }
-                score[position] = 1
             }else{
                 if (score[position]>=0){
                     count[position] = 1

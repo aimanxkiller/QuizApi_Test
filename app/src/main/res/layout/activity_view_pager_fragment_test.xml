@@ -19,7 +19,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginStart="25dp"
         android:layout_below="@+id/view_pager2_fragment"
-        android:text="Left"
+        android:text="@string/leftbutton2"
 
         />
 
@@ -32,5 +32,5 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="25dp"
         android:layout_below="@+id/view_pager2_fragment"
-        android:text="Right" />
+        android:text="@string/right2" />
 </RelativeLayout>

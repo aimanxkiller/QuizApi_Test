@@ -1,22 +1,22 @@
 package com.example.apitestquiz.viewmodel
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
-import com.example.apitestquiz.FragmentFirstPage
-import com.example.apitestquiz.FragmentLastPage
-import com.example.apitestquiz.FragmentMidPage
-import com.example.apitestquiz.R
+import com.example.apitestquiz.*
 import com.example.apitestquiz.data.Retro
 import com.example.apitestquiz.model.QuestionModelItem
 import com.example.apitestquiz.network.QuestionApi
 import kotlinx.coroutines.*
 
-class ViewPagerFragmentTest : AppCompatActivity() {
+class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
 
     private var type:String = "science"
     private lateinit var listA : List<QuestionModelItem>
@@ -25,6 +25,9 @@ class ViewPagerFragmentTest : AppCompatActivity() {
 
     private lateinit var buttonL:Button
     private lateinit var buttonR:Button
+
+    lateinit var countQ:IntArray
+    lateinit var scoreQ:IntArray
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,15 +42,44 @@ class ViewPagerFragmentTest : AppCompatActivity() {
 
         getQuestionCoroutine()
 
-        setButtons()
+        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                setButtons(position)
+            }
+        })
 
     }
 
-    private fun setButtons(){
+    @SuppressLint("SetTextI18n")
+    private fun setButtons(position: Int) {
+        buttonR.text = "Next"
+        buttonL.text = "Previous"
         buttonR.setOnClickListener {
             pager.currentItem = pager.currentItem + 1
         }
-
+        when (position){
+            0 ->{
+                buttonL.visibility = View.INVISIBLE
+            }
+            (listA.size - 1) ->{
+                buttonR.text = "Finish"
+                buttonL.setOnClickListener {
+                    pager.currentItem = pager.currentItem - 1
+                }
+                buttonR.setOnClickListener {
+                    val intent = Intent (context, EndActivity::class.java)
+                    intent.putExtra("scoreFin",scoreQ.sum().toString())
+                    context.startActivity(intent)
+                }
+            }
+            else ->{
+                buttonL.visibility = View.VISIBLE
+                buttonL.setOnClickListener {
+                    pager.currentItem = pager.currentItem - 1
+                }
+            }
+        }
     }
 
     private fun getQuestionCoroutine(){
@@ -61,12 +93,20 @@ class ViewPagerFragmentTest : AppCompatActivity() {
                 if(response.isSuccessful){
                     listA= response.body()!!
                     delay(500)
+                    scoreQ= IntArray(listA.size)
+                    countQ= IntArray(listA.size)
                     val adapter=MyAdapterFragment(context as AppCompatActivity,listA)
                     pager.adapter = adapter
                 }
             }
         }
+    }
 
+    override fun onDataPass(score: Int, count: Int,position:Int) {
+        scoreQ[position] = score
+        countQ[position] = count
+
+        setButtons(position)
     }
 
 }
