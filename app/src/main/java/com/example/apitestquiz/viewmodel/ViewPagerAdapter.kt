@@ -49,6 +49,7 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
             radioButton.text = answers[index]
         }
 
+
         holder.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val radio:RadioButton = holder.radioGroup.findViewById(checkedId)
             if(radio.text.toString().equals(answerCorrect[position],true)){

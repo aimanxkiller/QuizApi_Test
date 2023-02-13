@@ -3,11 +3,11 @@ package com.example.apitestquiz.viewmodel
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.example.apitestquiz.*
@@ -15,6 +15,7 @@ import com.example.apitestquiz.data.Retro
 import com.example.apitestquiz.model.QuestionModelItem
 import com.example.apitestquiz.network.QuestionApi
 import kotlinx.coroutines.*
+
 
 class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
 
@@ -70,6 +71,7 @@ class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
                     val intent = Intent (context, EndActivity::class.java)
                     intent.putExtra("scoreFin",scoreQ.sum().toString())
                     context.startActivity(intent)
+                    finish()
                 }
             }
             else ->{
@@ -104,5 +106,6 @@ class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
         scoreQ[position] = score
         countQ[position] = count
     }
+
 
 }
