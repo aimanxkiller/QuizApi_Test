@@ -11,8 +11,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
         android:layout_marginTop="125dp"
-
         android:justificationMode="inter_word"
         android:paddingHorizontal="25dp"
         android:paddingVertical="5dp"
