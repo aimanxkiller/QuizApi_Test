@@ -68,10 +68,14 @@ class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
                     pager.currentItem = pager.currentItem - 1
                 }
                 buttonR.setOnClickListener {
-                    val intent = Intent (context, EndActivity::class.java)
-                    intent.putExtra("scoreFin",scoreQ.sum().toString())
-                    context.startActivity(intent)
-                    finish()
+                    if(countQ.sum()==5){
+                        val intent = Intent (context, EndActivity::class.java)
+                        intent.putExtra("scoreFin",scoreQ.sum().toString())
+                        context.startActivity(intent)
+                        finish()
+                    }else{
+                        Toast.makeText(this,"Please answer all question !",Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
             else ->{
@@ -106,6 +110,4 @@ class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
         scoreQ[position] = score
         countQ[position] = count
     }
-
-
 }
