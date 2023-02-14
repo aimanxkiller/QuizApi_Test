@@ -38,23 +38,23 @@
         android:text="@string/nextSel"
         android:paddingVertical="10dp"
         android:paddingHorizontal="30dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dropdownList" />
 
     <Button
-        android:layout_margin="50dp"
         android:id="@+id/buttonTester"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="@string/slideview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSel" />
 
     <Button
-        android:layout_margin="50dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/buttonTester2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
