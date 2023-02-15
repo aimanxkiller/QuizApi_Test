@@ -20,4 +20,6 @@
     <string name="left">Left</string>
     <string name="right2">Navigation</string>
     <string name="leftbutton2">Navigation</string>
+    <string name="button">Button</string>
+    <string name="buttonfrag">Button</string>
 </resources>

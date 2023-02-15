@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.example.apitestquiz.R
@@ -27,6 +25,7 @@ private const val ARG_PARAM2 = "param2"
 
 interface FragmentCommunicator{
     fun onDataPass(score: Int,count:Int,position:Int)
+    fun onPagePass(page:Int)
 }
 
 class FragmentMidPage(list: List<QuestionModelItem>, position: Int) : Fragment() {
@@ -50,8 +49,10 @@ class FragmentMidPage(list: List<QuestionModelItem>, position: Int) : Fragment()
     lateinit var text: TextView
     lateinit var radioGroup: RadioGroup
     lateinit var radioButton: RadioButton
-    lateinit var answerCorrect:String
+    lateinit var buttonL:Button
+    lateinit var buttonR:Button
 
+    private lateinit var answerCorrect:String
     private var score:Int =0
     private var count:Int =0
 
@@ -73,38 +74,61 @@ class FragmentMidPage(list: List<QuestionModelItem>, position: Int) : Fragment()
         val view = inflater.inflate(R.layout.fragment_mid_page, container, false)
         text = view.findViewById(R.id.textQuestion2)
         radioGroup = view.findViewById(R.id.radioGroup2)
+        buttonL = view.findViewById(R.id.buttonFragLeft)
+        buttonR= view.findViewById(R.id.buttonFragRight)
 
         text.text = "${pos+1}. " +listA[pos].question
         radioSettings(getAnswerCollection(listA[pos]))
 
+        setButtons()
+
         return view
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun setButtons() {
+        buttonR.text = "Next"
+        buttonL.text = "Previous"
+        buttonL.setOnClickListener {
+            listener?.onPagePass(pos-2)
+        }
+        buttonR.setOnClickListener {
+            listener?.onPagePass(pos)
+        }
+        when (pos){
+            0 ->{
+                buttonL.visibility = View.INVISIBLE
+            }
+            (listA.size - 1) ->{
+                buttonR.text = "Finish"
+                buttonR.setOnClickListener {
+                    listener?.onPagePass(pos)
+                }
+            }
+            else ->{
+                buttonL.visibility = View.VISIBLE
+            }
+        }
+    }
 
-    private fun radioSettings(answerCollection: MutableList<String>,){
+    private fun radioSettings(answerCollection: MutableList<String>){
         radioGroup.children.forEachIndexed { index, view ->
             radioButton = view as RadioButton
             radioButton.text = answerCollection[index]
         }
 
+        //updated no nesting required
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val radio: RadioButton = radioGroup.findViewById(checkedId)
-            if(radio.text.toString().equals(answerCorrect,true)){
-                if (score <=0) {
-                    count = 1
-                    score = 1
-                }
-
+            count = 1
+            score = if(radio.text.toString().equals(answerCorrect,true)){
+                1
             }else{
-                if (score>=0){
-                    count = 1
-                    score = 0
-                }
+                0
             }
             listener?.onDataPass(score,count,pos)
         }
     }
-
 
     private fun getAnswerCollection(x:QuestionModelItem): MutableList<String> {
         answerCorrect = x.correctAnswer

@@ -19,7 +19,6 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
     private var count:IntArray = IntArray(list.size)
     private var answerCorrect = Array(list.size){""}
 
-
     inner class Pager2ViewHolder(itemView : View): RecyclerView.ViewHolder(itemView){
         //item_page content
         val radioGroup: RadioGroup = itemView.findViewById(R.id.radioGroup2)
@@ -27,7 +26,6 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
         val buttonRight: Button = itemView.findViewById(R.id.buttonRight)
         val buttonLeft: Button = itemView.findViewById(R.id.buttonLeft)
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Pager2ViewHolder {
         return Pager2ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_page,parent,false))
@@ -50,19 +48,14 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
             radioButton.text = answers[index]
         }
 
-
+        //updated no nesting required
         holder.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val radio:RadioButton = holder.radioGroup.findViewById(checkedId)
+            count[position] = 1
             if(radio.text.toString().equals(answerCorrect[position],true)){
-                if (score[position]<=0) {
-                    count[position] = 1
-                    score[position] = 1
-                }
+                score[position] = 1
             }else{
-                if (score[position]>=0){
-                    count[position] = 1
-                    score[position] = 0
-                }
+                score[position] = 0
             }
         }
     }
