@@ -1,4 +1,4 @@
-package com.example.apitestquiz.viewmodel
+package com.example.apitestquiz.adapter
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

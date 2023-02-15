@@ -1,4 +1,4 @@
-package com.example.apitestquiz.viewmodel
+package com.example.apitestquiz.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,6 +10,7 @@ import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apitestquiz.R
 import com.example.apitestquiz.model.QuestionModelItem
+import com.example.apitestquiz.viewmodel.EndActivity
 
 class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Adapter<ViewPagerAdapter.Pager2ViewHolder>() {
     private lateinit var radioButton: RadioButton
@@ -28,7 +29,7 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerAdapter.Pager2ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Pager2ViewHolder {
         return Pager2ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_page,parent,false))
     }
 
@@ -37,13 +38,13 @@ class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Ad
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewPagerAdapter.Pager2ViewHolder, position:Int){
+    override fun onBindViewHolder(holder: Pager2ViewHolder, position:Int){
         holder.textView.text = ("${position+1}. "+ list[position].question)
         radioSettings(holder,position,getAnswerCollection(list,position))
         buttonSettings(holder,position)
     }
 
-    private fun radioSettings(holder: Pager2ViewHolder,position: Int,answers: MutableList<String>) {
+    private fun radioSettings(holder: Pager2ViewHolder, position: Int, answers: MutableList<String>) {
         holder.radioGroup.children.forEachIndexed { index, view ->
             radioButton = view as RadioButton
             radioButton.text = answers[index]

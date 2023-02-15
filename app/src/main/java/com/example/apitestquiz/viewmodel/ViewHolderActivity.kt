@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.example.apitestquiz.R
+import com.example.apitestquiz.adapter.ViewPagerAdapter
 import com.example.apitestquiz.data.Retro
 import com.example.apitestquiz.model.QuestionModelItem
 import com.example.apitestquiz.network.QuestionApi

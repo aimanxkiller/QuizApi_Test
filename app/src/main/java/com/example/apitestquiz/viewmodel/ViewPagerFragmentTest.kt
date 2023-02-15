@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.example.apitestquiz.*
+import com.example.apitestquiz.adapter.MyAdapterFragment
 import com.example.apitestquiz.data.Retro
 import com.example.apitestquiz.fragment.FragmentCommunicator
 import com.example.apitestquiz.model.QuestionModelItem
@@ -101,7 +102,7 @@ class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
                     listA= response.body()!!
                     scoreQ= IntArray(listA.size)
                     countQ= IntArray(listA.size)
-                    val adapter=MyAdapterFragment(context as AppCompatActivity,listA)
+                    val adapter= MyAdapterFragment(context as AppCompatActivity,listA)
                     pager.adapter = adapter
                 }
             }
