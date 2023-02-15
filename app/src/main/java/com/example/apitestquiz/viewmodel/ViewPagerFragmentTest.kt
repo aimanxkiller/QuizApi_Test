@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.example.apitestquiz.*
 import com.example.apitestquiz.data.Retro
+import com.example.apitestquiz.fragment.FragmentCommunicator
 import com.example.apitestquiz.model.QuestionModelItem
 import com.example.apitestquiz.network.QuestionApi
 import kotlinx.coroutines.*
@@ -49,6 +50,7 @@ class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
                 setButtons(position)
             }
         })
+
     }
 
     @SuppressLint("SetTextI18n")

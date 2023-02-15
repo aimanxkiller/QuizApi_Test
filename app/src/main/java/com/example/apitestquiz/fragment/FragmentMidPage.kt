@@ -11,7 +11,6 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
-import com.example.apitestquiz.FragmentCommunicator
 import com.example.apitestquiz.R
 import com.example.apitestquiz.model.QuestionModelItem
 
@@ -25,6 +24,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the  factory method to
  * create an instance of this fragment.
  */
+
+interface FragmentCommunicator{
+    fun onDataPass(score: Int,count:Int,position:Int)
+}
+
 class FragmentMidPage(list: List<QuestionModelItem>, position: Int) : Fragment() {
     private var listener: FragmentCommunicator? = null
 
