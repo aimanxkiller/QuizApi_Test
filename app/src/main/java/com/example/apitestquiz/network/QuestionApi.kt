@@ -8,7 +8,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface QuestionApi {
-
     @GET("https://the-trivia-api.com/api/questions?limit=5")
     suspend fun getQuestionCat(
         @Query("categories") categories:String

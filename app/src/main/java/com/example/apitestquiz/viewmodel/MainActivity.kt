@@ -19,8 +19,6 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
-
 class MainActivity : AppCompatActivity() {
     private lateinit var radioGroup: RadioGroup
     private lateinit var radioButton: RadioButton
@@ -52,7 +50,6 @@ class MainActivity : AppCompatActivity() {
         buttonNext.setOnClickListener {
             buttonClick()
         }
-
     }
 
     private fun buttonClick(){
@@ -97,31 +94,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun getQuestion() {
-//        val retro = Retro().getRetroClient().create(QuestionApi::class.java)
-//        retro.getQuestionCat(type).enqueue(object :Callback<List<QuestionModelItem>>{
-//            override fun onResponse(
-//                call: Call<List<QuestionModelItem>>,
-//                response: Response <List<QuestionModelItem>>
-//            ) {
-//                //Changed to using okHTTP logging
-//                listA = response.body()!!
-//                setQuestion()
-//            }
-//            //updated using onFailure and placing retry option within onFailure
-//            @SuppressLint("SetTextI18n")
-//            override fun onFailure(call: Call<List<QuestionModelItem>>, t: Throwable) {
-//                Toast.makeText(this@MainActivity,"No Network Connection",Toast.LENGTH_SHORT).show()
-//
-//                buttonRight.text ="Retry"
-//                buttonRight.setOnClickListener {
-//                    retryConnection()
-//                }
-//                Log.e("Fail","Failed to get data")
-//            }
-//        })
-//    }
-
     @SuppressLint("SetTextI18n")
     fun setQuestion(){
         textView.text = listA[count].question //Questions
@@ -130,11 +102,6 @@ class MainActivity : AppCompatActivity() {
         val answerCollect = answerWrong + answerCorrect  //Getting answer collections and shuffling
         val answerShuffle = answerCollect.toMutableList()
         answerShuffle.shuffle()
-
-        /*for (i in 0 until radioGroup.childCount){ //output of answers to radioButton text
-            radioButton = radioGroup.getChildAt(i) as RadioButton
-            radioButton.text = answerShuffle[i]
-        }*/ //update here
 
         //Try using forEach/forEachIndexed if looping with index
         radioGroup.children.forEachIndexed { index, view ->

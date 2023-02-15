@@ -19,11 +19,6 @@ class MyAdapterFragment(
     //Updated Here Use Single Fragment
     override fun createFragment(position: Int): Fragment {
         return FragmentMidPage(list,position)
-//        return when(position){
-//            0 -> FragmentFirstPage(list,position)
-//            list.size -> FragmentLastPage(list,position)
-//            else -> FragmentMidPage(list,position)
-//        }
     }
 
     override fun onBindViewHolder(

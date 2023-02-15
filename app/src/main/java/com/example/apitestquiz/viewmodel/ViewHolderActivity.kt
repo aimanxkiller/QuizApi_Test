@@ -34,7 +34,6 @@ class ViewHolderActivity : AppCompatActivity() {
         val handler = CoroutineExceptionHandler { _, throwable ->
             Toast.makeText(this@ViewHolderActivity,"No internet connection : $throwable", Toast.LENGTH_SHORT).show()
         }
-
         lifecycleScope.launch(Dispatchers.Main+handler) {
             val x = async {
                 val response = retro.getQuestionCat(type)
@@ -44,12 +43,8 @@ class ViewHolderActivity : AppCompatActivity() {
                 }
                 return@async listA
             }
-
             viewPager2.adapter = ViewPagerAdapter(x.await())
         }
-
     }
-
-
 
 }

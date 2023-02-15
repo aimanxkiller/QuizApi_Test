@@ -9,7 +9,6 @@ import android.widget.TextView
 import com.example.apitestquiz.R
 
 class EndActivity : AppCompatActivity() {
-
     private lateinit var textView:TextView
     private lateinit var buttonReset:Button
 
@@ -29,5 +28,7 @@ class EndActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
     }
+
 }

@@ -17,7 +17,6 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
 
     private var type:String = "science"
@@ -77,4 +76,5 @@ class ViewPagerFragmentTest : AppCompatActivity(),FragmentCommunicator {
             }
         }
     }
+
 }

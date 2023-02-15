@@ -43,7 +43,6 @@ data class QuizCat(
                 }
             }
         }
-
         return category
     }
 
@@ -65,7 +64,7 @@ data class QuizCat(
                 category2[index]= category2[index].replace("[","").replace("]","")
             }
         }
-
         return category2
     }
+
 }

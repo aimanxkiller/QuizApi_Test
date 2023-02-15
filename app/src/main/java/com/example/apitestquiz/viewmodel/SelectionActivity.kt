@@ -22,7 +22,6 @@ class SelectionActivity : AppCompatActivity() {
     private lateinit var buttonTester2:Button
     lateinit var selection:String
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_selection)
@@ -30,7 +29,6 @@ class SelectionActivity : AppCompatActivity() {
         spinner = findViewById(R.id.dropdownList)
         buttonTester = findViewById(R.id.buttonTester)
         buttonTester2 = findViewById(R.id.buttonTester2)
-
 
         getQuizCatCoroutine()
         buttonNext.setOnClickListener {
@@ -85,7 +83,6 @@ class SelectionActivity : AppCompatActivity() {
                 retryConnection()
             }
         }
-
         lifecycleScope.launch(Dispatchers.Main+handler){
             val response = retro.getCategories().awaitResponse()
             if(response.isSuccessful){
@@ -100,25 +97,6 @@ class SelectionActivity : AppCompatActivity() {
         startActivity(intent2)
         finish()
     }
-
-    // Old retro calling not using coroutine
-//    private fun getQuizCat(){
-//        val retro = Retro().getRetroClient().create(QuestionApi::class.java)
-//        retro.getCategories().enqueue(object : Callback<QuizCat>{
-//            override fun onResponse(call: Call<QuizCat>, response: Response<QuizCat>){
-//                if(response.isSuccessful){
-//                    spinnerEnabler(response.body()!!)
-//                }
-//                else{
-//                    Toast.makeText(applicationContext,"Error",Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//            override fun onFailure(call: Call<QuizCat>, t: Throwable) {
-//                Toast.makeText(this@SelectionActivity,"Failed to get Data",Toast.LENGTH_SHORT).show()
-//                Log.e("Fail","Failed to get data: "+ t.message)
-//            }
-//        })
-//    }
 
     private fun buttonClick(){
         val intent = Intent(this, MainActivity::class.java)
