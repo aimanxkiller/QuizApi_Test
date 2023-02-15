@@ -63,6 +63,24 @@
 
     </RadioGroup>
 
+    <Button
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/buttonFragLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup2"
+        android:layout_alignParentStart="true"
+        android:text="Button" />
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:id="@+id/buttonFragRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup2"
+        android:layout_alignParentEnd="true"
+        android:text="Button" />
 
 
 </RelativeLayout>
