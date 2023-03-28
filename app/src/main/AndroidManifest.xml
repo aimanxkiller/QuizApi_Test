@@ -23,28 +23,28 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".viewmodel.ViewHolderActivity"
+            android:name=".ui.ViewHolderActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".viewmodel.MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".viewmodel.EndActivity"
+            android:name=".ui.EndActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".viewmodel.SelectionActivity"
+            android:name=".ui.SelectionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

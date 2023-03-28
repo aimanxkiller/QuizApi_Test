@@ -10,7 +10,7 @@ import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import com.example.apitestquiz.R
 import com.example.apitestquiz.model.QuestionModelItem
-import com.example.apitestquiz.viewmodel.EndActivity
+import com.example.apitestquiz.ui.EndActivity
 
 class ViewPagerAdapter(private var list:List<QuestionModelItem>):RecyclerView.Adapter<ViewPagerAdapter.Pager2ViewHolder>() {
     private lateinit var radioButton: RadioButton

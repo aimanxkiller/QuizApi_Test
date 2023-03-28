@@ -1,4 +1,4 @@
-package com.example.apitestquiz.viewmodel
+package com.example.apitestquiz.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -13,6 +13,7 @@ import com.example.apitestquiz.data.Retro
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.*
 import androidx.lifecycle.*
+import com.example.apitestquiz.viewmodel.ViewPagerFragmentTest
 import retrofit2.*
 
 class SelectionActivity : AppCompatActivity() {

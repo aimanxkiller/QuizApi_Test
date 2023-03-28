@@ -1,4 +1,4 @@
-package com.example.apitestquiz.viewmodel
+package com.example.apitestquiz.ui
 
 import android.os.Bundle
 import android.widget.Toast

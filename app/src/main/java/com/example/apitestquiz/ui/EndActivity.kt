@@ -1,4 +1,4 @@
-package com.example.apitestquiz.viewmodel
+package com.example.apitestquiz.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
